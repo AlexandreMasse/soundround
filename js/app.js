@@ -101,7 +101,7 @@
         rmlink.parentNode.removeChild(rmlink);
 
         //Dessin du favicon
-        var favicon = document.createElement('favicon');
+        var favicon = document.createElement('canvas');
         favicon.width = 50;
         favicon.height = 50;
         var ctx = favicon.getContext('2d');
@@ -124,8 +124,6 @@
         document.getElementsByTagName('head')[0].appendChild(link);
 
     });
-
-
 
     /****** IMPORT MUSIQUE LOCAL ******/
 
