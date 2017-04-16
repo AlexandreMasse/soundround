@@ -1,9 +1,10 @@
 'use strict';
 (function() {
 
+    // Fonction Récupération mediatags ID3
+
     var jsmediatags = window.jsmediatags;
 
-    //Fonction Récupération mediatag ID3
     var getMetatags = function (file) {
         jsmediatags.read(file, {
             onSuccess: function(tag) {
@@ -66,7 +67,31 @@
         });
     };
 
-    /***** IMPORT MUSIQUE LOCAL *****/
+
+    //Changement couleur au chargement de l'image
+
+    var cover = document.getElementById("cover");
+
+    cover.addEventListener("load", function () {
+        var colorThief = new ColorThief();
+        var colors = colorThief.getPalette(cover, 2);
+        console.log(colors);
+        var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
+        var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
+
+        document.querySelector('body').style.backgroundColor = accentColor2;
+        document.getElementById('footer').style.backgroundColor = accentColor1;
+
+        var ps = document.querySelectorAll('p');
+        for (var i = 0; i < ps.length; i++) {
+            var p = ps[i];
+            p.style.color = accentColor1;
+        }
+
+
+    });
+
+    /****** IMPORT MUSIQUE LOCAL ******/
 
     var fileInput = document.getElementById("file-input");
     var fileButton = document.getElementById("file-button");
@@ -82,7 +107,10 @@
     fileInput.addEventListener("change", function(event) {
         var file = event.target.files[0];
         getMetatags(file);
+
     }, false);
+
+
 
 })();
 
