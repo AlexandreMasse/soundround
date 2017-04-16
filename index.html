@@ -6,25 +6,43 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>SoundRound</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700,800" rel="stylesheet">
+    <!-- Normalize -->
     <link rel="stylesheet" href="css/normalize.css">
+    <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
+
+    <link type="image/x-icon" rel="shortcut icon" href="#">
+
 </head>
 <body>
+
     <main>
+        <section id="show">
+            <div id="show__container">
+                <img src="#" alt="Album cover" id="cover">
+                <div id="meta">
+                    <p id="title"></p>
+                    <p id="artist"></p>
+                    <p id="album"></p>
+                    <p id="year"></p>
+                </div>
 
-        <img src="" alt="cover" id="cover">
+            </div>
 
-        <p id="title"></p>
-        <p id="artist"></p>
-        <p id="album"></p>
-        <p id="year"></p>
+        </section>
+
+        <section id="panel">
+            <button id="file-button">Selectionner musique</button>
+            <input type="file" id="file-input">
+        </section>
+
     </main>
 
 
-    <footer class="footer" id="footer">
-        <button id="file-button">Selectionner musique</button>
-        <input type="file" id="file-input">
-    </footer>
+
 </body>
 
 <script src="js/jsmediatags.min.js"></script>

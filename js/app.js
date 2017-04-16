@@ -68,20 +68,24 @@
     };
 
 
-    //Changement couleur au chargement de l'image
+    /****** Changement couleur au chargement de l'image ******/
 
     var cover = document.getElementById("cover");
 
+    /*** Quand l'image charge ***/
+
     cover.addEventListener("load", function () {
+
+        //Récupération palette couleur avec ColorThief
         var colorThief = new ColorThief();
         var colors = colorThief.getPalette(cover, 2);
         console.log(colors);
         var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
         var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
 
-        document.querySelector('body').style.backgroundColor = accentColor2;
-        document.getElementById('footer').style.backgroundColor = accentColor1;
-
+        //Application des couleurs
+        document.getElementById('show').style.backgroundColor = accentColor2;
+        document.getElementById('panel').style.backgroundColor = accentColor1;
         var ps = document.querySelectorAll('p');
         for (var i = 0; i < ps.length; i++) {
             var p = ps[i];
@@ -89,7 +93,39 @@
         }
 
 
+        /*** Dessin du nouveau favicon ***/
+
+        //Suprimme l'ancien favicon
+        var rmlink = document.querySelector("head link[type='image/x-icon']");
+        console.log(rmlink);
+        rmlink.parentNode.removeChild(rmlink);
+
+        //Dessin du favicon
+        var favicon = document.createElement('favicon');
+        favicon.width = 50;
+        favicon.height = 50;
+        var ctx = favicon.getContext('2d');
+        var centerX = favicon.width / 2;
+        var centerY = favicon.height / 2;
+        var radius = 19;
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+        ctx.fillStyle = accentColor2;
+        ctx.fill();
+        ctx.lineWidth = 10;
+        ctx.strokeStyle = accentColor1;
+        ctx.stroke();
+
+        //Remplacement du lien
+        var link = document.createElement('link');
+        link.type = 'image/x-icon';
+        link.rel = 'shortcut icon';
+        link.href = favicon.toDataURL("image/x-icon");
+        document.getElementsByTagName('head')[0].appendChild(link);
+
     });
+
+
 
     /****** IMPORT MUSIQUE LOCAL ******/
 
