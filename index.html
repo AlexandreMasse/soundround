@@ -9,17 +9,18 @@
 
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:200,300,400,500,600,700,800" rel="stylesheet">
+    <link rel="stylesheet" href="font/font.css">
     <!-- Normalize -->
     <link rel="stylesheet" href="css/normalize.css">
     <!-- CSS -->
     <link rel="stylesheet" href="css/styles.css">
-
-    <link type="image/x-icon" rel="shortcut icon" href="#">
+    <!--Favicon-->
+    <link type="image/x-icon" rel="shortcut icon" href="img/favicon.png">
 
 </head>
 <body>
     <div id="drop-zone" class="hidden">
-        <p>Glissez dépossez votre musique</p>
+        <p>Glissez-déposez votre musique</p>
     </div>
     <main>
         <section id="show">
@@ -37,7 +38,14 @@
         </section>
 
         <section id="panel">
-            <button id="file-button">Selectionner musique</button>
+            <button class="icon-help"></button>
+            <button class="icon-volume-on"></button>
+            <button class="icon-microphone"></button>
+            <button id="file-button" class="icon-folder"></button>
+            <button class="icon-control-play"></button>
+            <a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
+            </a>
+            <button class="icon-soundcloud-play"></button>
             <input type="file" id="file-input">
         </section>
 

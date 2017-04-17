@@ -1,7 +1,9 @@
 'use strict';
 (function() {
 
-    // Fonction Récupération mediatags ID3
+    /*****************************
+     * Récupération mediatags
+     * ****************************/
 
     var jsmediatags = window.jsmediatags;
 
@@ -68,13 +70,15 @@
     };
 
 
-    /****** Changement couleur au chargement de l'image ******/
+    /******************************
+     * Changement couleur au chargement de l'image
+     * *****************************/
 
     var cover = document.getElementById("cover");
 
-    /*** Quand l'image charge ***/
-
     cover.addEventListener("load", function () {
+
+        this.style.display = 'block';
 
         //Récupération palette couleur avec ColorThief
         var colorThief = new ColorThief();
@@ -86,9 +90,15 @@
         //Application des couleurs
         document.getElementById('show').style.backgroundColor = accentColor2;
         document.getElementById('panel').style.backgroundColor = accentColor1;
+
+        var buttons = document.querySelectorAll('#panel > *');
+        for (var i = 0; i < buttons.length; i++) {
+            var button = buttons[i];
+            button.style.color = accentColor2;
+        }
         var metas = document.querySelectorAll('#meta p');
-        for (var i = 0; i < metas.length; i++) {
-            var meta = metas[i];
+        for (var j = 0; j < metas.length; j++) {
+            var meta = metas[j];
             meta.style.color = accentColor1;
         }
 
@@ -125,9 +135,10 @@
 
     });
 
-    /****************************
+
+    /*******************************
      * IMPORT INPUT TYPE FILE
-     * ***************************/
+     * *****************************/
 
     var fileInput = document.getElementById("file-input");
     var fileButton = document.getElementById("file-button");
@@ -147,24 +158,21 @@
     }, false);
 
 
-    /*******************************
+    /******************************
      * IMPORT DRAG & DROP
-     * ******************************/
+     * *****************************/
 
     var dropZone = document.getElementById('drop-zone');
 
     document.addEventListener('dragover', function(e) {
         e.stopPropagation();
         e.preventDefault();
-
-        // dropZone.removeClass('hidden');
         dropZone.classList.remove('hidden');
     });
 
     dropZone.addEventListener('dragleave', function(e) {
         e.stopPropagation();
         e.preventDefault();
-
         dropZone.classList.add('hidden');
     });
 
@@ -177,16 +185,41 @@
     dropZone.addEventListener('drop', function (e) {
         e.stopPropagation();
         e.preventDefault();
-
-        //Recupère le fichier
+        //Recupère un seule fichier
         var file = e.dataTransfer.files[0];
         getMetatags(file);
-
         dropZone.classList.add('hidden');
-    })
+    });
 
 
 
+    /**************************
+     * Gestion des buttons
+     * *************************/
+
+    var volume = document.querySelector("button[class^='icon-volume']");
+
+    volume.addEventListener('click', function () {
+        if (this.className == "icon-volume-on") {
+            this.classList.remove('icon-volume-on');
+            this.classList.add('icon-volume-off');
+        } else {
+            this.classList.remove('icon-volume-off');
+            this.classList.add('icon-volume-on');
+        }
+    });
+
+    var control = document.querySelector("button[class^='icon-control']");
+
+    control.addEventListener('click', function () {
+        if (this.className == "icon-control-play") {
+            this.classList.remove('icon-control-play');
+            this.classList.add('icon-control-pause');
+        } else {
+            this.classList.remove('icon-control-pause');
+            this.classList.add('icon-control-play');
+        }
+    });
 
 
 })();
