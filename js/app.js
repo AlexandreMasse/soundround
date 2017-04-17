@@ -86,10 +86,10 @@
         //Application des couleurs
         document.getElementById('show').style.backgroundColor = accentColor2;
         document.getElementById('panel').style.backgroundColor = accentColor1;
-        var ps = document.querySelectorAll('p');
-        for (var i = 0; i < ps.length; i++) {
-            var p = ps[i];
-            p.style.color = accentColor1;
+        var metas = document.querySelectorAll('#meta p');
+        for (var i = 0; i < metas.length; i++) {
+            var meta = metas[i];
+            meta.style.color = accentColor1;
         }
 
 
@@ -125,7 +125,9 @@
 
     });
 
-    /****** IMPORT MUSIQUE LOCAL ******/
+    /****************************
+     * IMPORT INPUT TYPE FILE
+     * ***************************/
 
     var fileInput = document.getElementById("file-input");
     var fileButton = document.getElementById("file-button");
@@ -143,6 +145,47 @@
         getMetatags(file);
 
     }, false);
+
+
+    /*******************************
+     * IMPORT DRAG & DROP
+     * ******************************/
+
+    var dropZone = document.getElementById('drop-zone');
+
+    document.addEventListener('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        // dropZone.removeClass('hidden');
+        dropZone.classList.remove('hidden');
+    });
+
+    dropZone.addEventListener('dragleave', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        dropZone.classList.add('hidden');
+    });
+
+    dropZone.addEventListener('dragover', function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        e.dataTransfer.dropEffect = 'copy';
+    });
+
+    dropZone.addEventListener('drop', function (e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        //Recupère le fichier
+        var file = e.dataTransfer.files[0];
+        getMetatags(file);
+
+        dropZone.classList.add('hidden');
+    })
+
+
 
 
 
