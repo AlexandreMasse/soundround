@@ -146,14 +146,25 @@ main {
     }
 
     &::-ms-track {
-      border: inherit;
-      color: transparent; /* don't drawn vertical reference line */
-      background: transparent;
+      //border: inherit;
+      //width:6rem;
+      //height: 20px;
+      color: transparent;
+      background-color: transparent;
+      border-color: transparent;
+      //border-width: 20px 0;
     }
 
-    &::-ms-fill-lower, &::-ms-fill-upper {
+    &::-ms-fill-lower {
       background: transparent;
+      border-radius: 10px;
     }
+
+    &::-ms-fill-upper {
+      background: transparent;
+      border-radius: 10px;
+    }
+
 
     &::-ms-tooltip {
       display: none;
@@ -173,7 +184,6 @@ main {
     }
 
 
-
     &::-moz-range-thumb {
       width: 20px;
       height: 20px;
@@ -183,14 +193,13 @@ main {
     }
 
     &::-ms-thumb {
-      border: 0;
+      border: none;
       width: 20px;
       height: 20px;
       border-radius: 50%;
-      background-color: $accentColor1;
+      background-color: $accentColor2;
     }
   }
-
 
 
 

@@ -133,7 +133,7 @@
 
         style.innerHTML += 'input[type=\'range\']::-moz-range-thumb{ background-color: ' + accentColor2 + '!important; }';
 
-        style.innerHTML += 'input[type=\'range\']::-ms-thumb{ background-color: ' + accentColor2 + '!important; }';
+        style.innerHTML += 'input[type=\'range\']::-ms-thumb{ background-color: ' + accentColor1 + '!important; }';
 
 
 
