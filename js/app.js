@@ -141,18 +141,13 @@
 
         /***** Application des couleurs *****/
 
+
+        /*** Font et paneau ***/
+
         document.getElementById('show').style.backgroundColor = accentColor2;
         document.getElementById('panel').style.backgroundColor = accentColor1;
 
-        /** Boutons **/
-
-        var buttons = document.querySelectorAll('#panel > *');
-        for (var i = 0; i < buttons.length; i++) {
-            var button = buttons[i];
-            button.style.color = accentColor2;
-        }
-
-        /** Metas **/
+        /*** Metas ***/
 
         var metas = document.querySelectorAll('#meta p');
         for (var j = 0; j < metas.length; j++) {
@@ -160,7 +155,24 @@
             meta.style.color = accentColor1;
         }
 
-        /** Volume Slider **/
+        /***** Timeline *****/
+
+        var timeline = document.getElementById('timeline');
+        var timelineProgress = document.getElementById('timeline-progress');
+
+        timeline.style.backgroundColor = accentColor2;
+        timelineProgress.style.backgroundColor = accentColor1;
+
+        /*** Boutons ***/
+
+        var buttons = document.querySelectorAll('#panel > *');
+        for (var i = 0; i < buttons.length; i++) {
+            var button = buttons[i];
+            button.style.color = accentColor2;
+        }
+
+
+        /*** Volume Slider ***/
 
         document.getElementById('volume-slider').style.backgroundColor = accentColor2;
 
@@ -277,6 +289,24 @@
     /*****************************************
      * Gestion controle et buttons
      * *****************************************/
+
+
+    /***** Timeline *****/
+
+    var timeline = document.getElementById('timeline');
+    var timelineProgress = document.getElementById('timeline-progress');
+
+    audio.addEventListener('timeupdate', function () {
+        var progression = (audio.currentTime / audio.duration) * 100;
+        timelineProgress.style.width = progression + '%';
+    });
+
+    timeline.addEventListener('click', function (e) {
+        var progressionPourcent = this.clientWidth / e.pageX;
+        audio.currentTime = audio.duration / progressionPourcent;
+
+    });
+
 
 
     /***** Volume *****/
