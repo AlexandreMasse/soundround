@@ -236,6 +236,7 @@
     //Clique sur bouton qui déclanche le champ input
     fileButton.addEventListener("click", function(){
         fileInput.click();
+        fileInput.blur();
     });
 
     //Récupération fichier et metatags
@@ -243,6 +244,8 @@
         var file = event.target.files[0];
         getMetatags(file);
         getURL(file);
+
+        this.blur();
 
     }, false);
 
@@ -291,6 +294,63 @@
      * *****************************************/
 
 
+    /***** Raccourci clavier *****/
+
+    document.addEventListener("keydown", function (e) {
+        console.log(e);
+
+        // Espace : Play / Pause
+        if(e.keyCode === 32) {
+            audio.paused ? audio.play() : audio.pause();
+        }
+
+        //M : Mute / Unmute
+        if (e.keyCode === 77) {
+            audio.muted ? audio.muted = false : audio.muted = true;
+
+        }
+
+        //U : Upload file
+        if (e.keyCode === 85) {
+            document.getElementById("file-input").click();
+        }
+
+
+        //Haut : monter le son
+        if (e.keyCode === 38) {
+            if (audio.volume < 0.9) {
+                audio.volume += 0.1
+            } else {
+                audio.volume = 1;
+            }
+        }
+
+        //Bas : baisser le son
+        if (e.keyCode === 40) {
+            if (audio.volume > 0.1) {
+                audio.volume -= 0.1
+            } else {
+                audio.volume = 0;
+            }
+        }
+
+        //Gauche : reculer de 10 secondes
+        if (e.keyCode === 37) {
+            audio.currentTime -= 10;
+        }
+
+        //Droite : avancer de 10 secondes
+        if (e.keyCode === 39) {
+            audio.currentTime += 10;
+        }
+
+
+    });
+
+
+
+
+
     /***** Timeline *****/
 
     var timeline = document.getElementById('timeline');
@@ -316,16 +376,35 @@
     var son = document.querySelector("button[class^='icon-volume']");
 
     son.addEventListener('click', function () {
-        if (this.className == "icon-volume-on") {
-            audio.muted = true;
-            this.classList.remove('icon-volume-on');
-            this.classList.add('icon-volume-off');
+
+       if(audio.muted) {
+           audio.muted = false;
+           son.classList.remove('icon-volume-off');
+           son.classList.add('icon-volume-on');
+       } else {
+           audio.muted = true;
+           son.classList.remove('icon-volume-on');
+           son.classList.add('icon-volume-off');
+       }
+
+
+    });
+
+    //Verifier état mute quand touche appuyé
+    audio.addEventListener('volumechange', function (e) {
+        console.log(e);
+        if (audio.muted || e.path[0].volume === 0) {
+            console.log ("son coupé");
+            son.classList.remove('icon-volume-on');
+            son.classList.add('icon-volume-off');
         } else {
-            audio.muted = false;
-            this.classList.remove('icon-volume-off');
-            this.classList.add('icon-volume-on');
+            console.log("son marche");
+            son.classList.remove('icon-volume-off');
+            son.classList.add('icon-volume-on');
         }
     });
+
+
 
     //Slider
 
@@ -337,6 +416,12 @@
     volumeSlider.addEventListener('change', function () {
        audio.volume = this.value / 100;
        this.blur();
+    });
+
+    audio.addEventListener('volumechange', function (e) {
+
+        volumeSlider.value =  e.path[0].volume * 100;
+
     });
 
 
