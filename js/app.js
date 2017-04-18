@@ -1,12 +1,15 @@
 'use strict';
 (function() {
 
-    /*****************************
-     * Récupération mediatags
-     * ****************************/
+    var audio = document.getElementById('audio');
+    var volume = 50; //Sur 100
 
+    /************************************************
+     * RECUPERATION DONNEES MUSIQUE
+     * **********************************************/
+
+    //Récupération metatags
     var jsmediatags = window.jsmediatags;
-
     var getMetatags = function (file) {
         jsmediatags.read(file, {
             onSuccess: function(tag) {
@@ -69,13 +72,20 @@
         });
     };
 
+    //Création de l'url pour la source audio
+    var getURL = function (file) {
+        var url = window.URL.createObjectURL(file);
+        audio.setAttribute("src", url);
+    };
 
-    /******************************
-     * Changement couleur au chargement de l'image
-     * *****************************/
+
+    /*************************************************
+     * CHANGEMENT DE COULEUR
+     * ***********************************************/
 
     var cover = document.getElementById("cover");
 
+    //Dès que l'image charge
     cover.addEventListener("load", function () {
 
         this.style.display = 'block';
@@ -136,9 +146,9 @@
     });
 
 
-    /*******************************
+    /******************************************
      * IMPORT INPUT TYPE FILE
-     * *****************************/
+     * *****************************************/
 
     var fileInput = document.getElementById("file-input");
     var fileButton = document.getElementById("file-button");
@@ -154,13 +164,14 @@
     fileInput.addEventListener("change", function(event) {
         var file = event.target.files[0];
         getMetatags(file);
+        getURL(file);
 
     }, false);
 
 
-    /******************************
+    /**********************************************
      * IMPORT DRAG & DROP
-     * *****************************/
+     * ********************************************/
 
     var dropZone = document.getElementById('drop-zone');
 
@@ -188,39 +199,67 @@
         //Recupère un seule fichier
         var file = e.dataTransfer.files[0];
         getMetatags(file);
+        getURL(file);
         dropZone.classList.add('hidden');
     });
 
 
 
-    /**************************
-     * Gestion des buttons
-     * *************************/
+    /***********************************
+     * Gestion controle et buttons
+     * **********************************/
 
-    var volume = document.querySelector("button[class^='icon-volume']");
+    /**** Volume ****/
 
-    volume.addEventListener('click', function () {
+    //Bouton
+    var son = document.querySelector("button[class^='icon-volume']");
+
+    son.addEventListener('click', function () {
         if (this.className == "icon-volume-on") {
+            audio.muted = true;
             this.classList.remove('icon-volume-on');
             this.classList.add('icon-volume-off');
         } else {
+            audio.muted = false;
             this.classList.remove('icon-volume-off');
             this.classList.add('icon-volume-on');
         }
     });
 
+    //Slider
+
+    var volumeSlider = document.getElementById('volume-slider');
+
+    volumeSlider.value = volume;
+    audio.volume = volume / 100;
+
+    volumeSlider.addEventListener('change', function () {
+       audio.volume = this.value / 100;
+       this.blur();
+    });
+
+
+
+
+    /**** Play et pause ****/
+
     var control = document.querySelector("button[class^='icon-control']");
 
     control.addEventListener('click', function () {
-        if (this.className == "icon-control-play") {
-            this.classList.remove('icon-control-play');
-            this.classList.add('icon-control-pause');
-        } else {
-            this.classList.remove('icon-control-pause');
-            this.classList.add('icon-control-play');
-        }
+
+        audio.paused ? audio.play() : audio.pause();
+
     });
 
+    audio.addEventListener('play', function () {
+        control.classList.remove('icon-control-play');
+        control.classList.add('icon-control-pause');
+    });
+
+    audio.addEventListener('pause', function () {
+        control.classList.remove('icon-control-pause');
+        control.classList.add('icon-control-play');
+    });
 
 })();
 
