@@ -97,27 +97,50 @@
         var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
         var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
 
-        //Application des couleurs
+
+        /***** Application des couleurs *****/
+
         document.getElementById('show').style.backgroundColor = accentColor2;
         document.getElementById('panel').style.backgroundColor = accentColor1;
+
+        /** Boutons **/
 
         var buttons = document.querySelectorAll('#panel > *');
         for (var i = 0; i < buttons.length; i++) {
             var button = buttons[i];
             button.style.color = accentColor2;
         }
+
+        /** Metas **/
+
         var metas = document.querySelectorAll('#meta p');
         for (var j = 0; j < metas.length; j++) {
             var meta = metas[j];
             meta.style.color = accentColor1;
         }
 
+        /** Volume Slider **/
 
-        /*** Dessin du nouveau favicon ***/
+        document.getElementById('volume-slider').style.backgroundColor = accentColor2;
+
+        //Ajout style perso dans header
+
+        var style = document.createElement("style");
+
+        document.head.appendChild(style);
+
+        style.innerHTML = 'input[type=\'range\']::-webkit-slider-thumb{ background-color: ' + accentColor2 + '!important; }';
+
+        style.innerHTML += 'input[type=\'range\']::-moz-range-thumb{ background-color: ' + accentColor2 + '!important; }';
+
+        style.innerHTML += 'input[type=\'range\']::-ms-thumb{ background-color: ' + accentColor2 + '!important; }';
+
+
+
+        /***** Dessin du nouveau favicon *****/
 
         //Suprimme l'ancien favicon
         var rmlink = document.querySelector("head link[type='image/x-icon']");
-        console.log(rmlink);
         rmlink.parentNode.removeChild(rmlink);
 
         //Dessin du favicon
@@ -146,6 +169,8 @@
     });
 
 
+
+
     /******************************************
      * IMPORT INPUT TYPE FILE
      * *****************************************/
@@ -167,6 +192,8 @@
         getURL(file);
 
     }, false);
+
+
 
 
     /**********************************************
@@ -205,13 +232,16 @@
 
 
 
-    /***********************************
+
+    /*****************************************
      * Gestion controle et buttons
-     * **********************************/
+     * *****************************************/
 
-    /**** Volume ****/
 
-    //Bouton
+    /***** Volume *****/
+
+    //Bouton Mute
+
     var son = document.querySelector("button[class^='icon-volume']");
 
     son.addEventListener('click', function () {
@@ -239,9 +269,7 @@
     });
 
 
-
-
-    /**** Play et pause ****/
+    /***** Play et pause *****/
 
     var control = document.querySelector("button[class^='icon-control']");
 
