@@ -8,7 +8,8 @@
      * RECUPERATION DONNEES MUSIQUE
      * **********************************************/
 
-    //Récupération metatags
+    /***** Récupération metatags *****/
+
     var jsmediatags = window.jsmediatags;
     var getMetatags = function (file) {
         jsmediatags.read(file, {
@@ -72,11 +73,51 @@
         });
     };
 
+
+    /***** Récupération temps *****/
+
+    audio.addEventListener('timeupdate', function () {
+
+        /*** Temps écoulé ***/
+
+        var currentMinutes = Math.floor(audio.currentTime / 60 ).toString();
+
+        var currentSeconds = Math.floor(audio.currentTime % 60);
+
+        //Toujours 2 chiffres
+        currentSeconds = currentSeconds < 10 ? '0' + currentSeconds.toString() : currentSeconds.toString();
+
+        document.getElementById('current-time').innerHTML = currentMinutes + ":" + currentSeconds;
+
+        /*** Temps total ***/
+
+        var durationMinutes = Math.floor(audio.duration / 60 ).toString();
+
+        var durationSeconds = Math.floor(audio.duration % 60);
+
+        //Toujours 2 chiffres
+        durationSeconds = durationSeconds < 10 ? '0' + durationSeconds.toString() : durationSeconds.toString();
+
+        //Empeche affichage NaN pendant chargement
+        if (isNaN(durationMinutes) && isNaN(durationSeconds)) {
+            document.getElementById('duration').innerText = "0:00";
+        }
+        else {
+
+            document.getElementById('duration').innerText = durationMinutes + ":" + durationSeconds;
+        }
+
+    });
+
+
     //Création de l'url pour la source audio
+
     var getURL = function (file) {
         var url = window.URL.createObjectURL(file);
         audio.setAttribute("src", url);
     };
+
+
 
 
     /*************************************************
