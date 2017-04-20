@@ -4,6 +4,15 @@ var gulp        = require('gulp'),
     browserSync = require('browser-sync').create();
 
 
+
+// Tache watch
+
+gulp.task('watch', function(){
+    gulp.watch('css/**/*.scss', ['sass']); //Dès qu'une modification est faite dans les fichier scss il compile
+});
+
+
+
 // Tache de compilation des fichiers Sass
 
 gulp.task('sass', function() {
@@ -13,7 +22,6 @@ gulp.task('sass', function() {
         .pipe(gulp.dest('css')) // Dossier de destination des css compilés
         .pipe(browserSync.stream());
 });
-
 
 
 
@@ -27,12 +35,4 @@ gulp.task('default', function() {
     });
 
     gulp.watch('css/**/*.scss', ['sass']);
-});
-
-
-
-// Tache watch
-
-gulp.task('watch', function(){
-    gulp.watch('css/**/*.scss', ['sass']); //Dès qu'une modification est faite dans les fichier scss il compile
 });

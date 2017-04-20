@@ -136,16 +136,25 @@
         var colors = colorThief.getPalette(cover, 2);
         console.log(colors);
         var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
+       /* var accentColor1t50 = 'rgb(' + colors[0].join(',') + ',0.5)';*/
         var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
+        /*var accentColor2t50 = 'rgb(' + colors[1].join(',') + ',0.5)';
+        console.log(accentColor2t50);*/
 
 
         /***** Application des couleurs *****/
 
 
+        /*** Theme color Chrome Mobile ***/
+
+        document.querySelector('meta[name="theme-color"]').setAttribute('content', accentColor1);
+
         /*** Font et paneau ***/
 
         document.getElementById('show').style.backgroundColor = accentColor2;
         document.getElementById('panel').style.backgroundColor = accentColor1;
+        document.getElementById('panel').style.color = accentColor2;
+
 
         /*** Metas ***/
 
@@ -163,30 +172,34 @@
         timeline.style.backgroundColor = accentColor2;
         timelineProgress.style.backgroundColor = accentColor1;
 
-        /*** Boutons ***/
-
-        var buttons = document.querySelectorAll('#panel > *');
-        for (var i = 0; i < buttons.length; i++) {
-            var button = buttons[i];
-            button.style.color = accentColor2;
-        }
-
 
         /*** Volume Slider ***/
 
         document.getElementById('volume-slider').style.backgroundColor = accentColor2;
 
-        //Ajout style perso dans header
+
+
+        /*** Ajout style perso dans header ****/
 
         var style = document.createElement("style");
 
         document.head.appendChild(style);
 
+        //Volume slider
         style.innerHTML = 'input[type=\'range\']::-webkit-slider-thumb{ background-color: ' + accentColor2 + '!important; }';
 
         style.innerHTML += 'input[type=\'range\']::-moz-range-thumb{ background-color: ' + accentColor2 + '!important; }';
 
-        style.innerHTML += 'input[type=\'range\']::-ms-thumb{ background-color: ' + accentColor1 + '!important; }';
+        style.innerHTML += 'input[type=\'range\']::-ms-thumb{ background-color: ' + accentColor1 + '!important;}';
+
+        //Soundcloud input
+        style.innerHTML += '#soundcloud div::after {background-color: ' + accentColor2+ '!important;}';
+
+        style.innerHTML += '#soundcloud input::-webkit-input-placeholder {color: ' + accentColor2 + '!important;}';
+
+        style.innerHTML += '#soundcloud input::-moz-placeholder {color: ' + accentColor2 + '!important;}';
+
+        style.innerHTML += '#soundcloud input:-ms-input-placeholder {color: ' + accentColor2 + '!important;}';
 
 
 

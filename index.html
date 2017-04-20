@@ -5,6 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="theme-color" content="#000000">
+
     <title>SoundRound</title>
 
     <!-- Font -->
@@ -19,14 +22,16 @@
 
 </head>
 <body>
+    <audio src="#" autoplay="autoplay" controls="controls" id="audio"></audio>
+    <input type="file" id="file-input">
     <div id="drop-zone" class="hidden">
         <p>Glissez-déposez votre musique</p>
     </div>
+
     <main>
         <section id="show">
             <div id="show__container">
                 <img src="#" alt="Album cover" id="cover">
-                <audio src="#" autoplay="autoplay" controls="controls" id="audio"></audio>
                 <div id="meta">
                     <p id="title"></p>
                     <p id="artist"></p>
@@ -35,7 +40,6 @@
                     <p id="current-time"></p>
                     <p id="duration"></p>
                 </div>
-
             </div>
 
         </section>
@@ -46,17 +50,23 @@
         </section>
 
         <section id="panel">
-            <button class="icon-help"></button>
-            <button class="icon-volume-on"></button>
-            <input id="volume-slider" type="range" min="0" max="100" step="1">
-            <button class="icon-microphone"></button>
-            <button id="file-button" class="icon-folder"></button>
-            <button class="icon-control-play"></button>
-            <a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
-            </a>
+            <div id="control">
+                <button class="icon-help"></button>
+                <button class="icon-volume-on"></button>
+                <input id="volume-slider" type="range" min="0" max="100" step="1">
+                <button class="icon-control-play"></button>
+                <button id="file-button" class="icon-folder"></button>
+                <button class="icon-microphone"></button>
+            </div>
+            <div id="soundcloud">
+                <a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
+                </a>
+                <div>
+                    <input type="text" placeholder="URL soundcloud">
+                </div>
 
-            <button class="icon-soundcloud-play"></button>
-            <input type="file" id="file-input">
+                <button class="icon-soundcloud-play"></button>
+            </div>
         </section>
 
     </main>
