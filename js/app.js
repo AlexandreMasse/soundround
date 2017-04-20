@@ -461,11 +461,14 @@
     audio.addEventListener('play', function () {
         control.classList.remove('icon-control-play');
         control.classList.add('icon-control-pause');
+        document.getElementById('cover').style.animationPlayState = "running";
+
     });
 
     audio.addEventListener('pause', function () {
         control.classList.remove('icon-control-pause');
         control.classList.add('icon-control-play');
+        document.getElementById('cover').style.animationPlayState = "paused";
     });
 
 })();

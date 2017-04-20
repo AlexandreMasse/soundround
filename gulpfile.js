@@ -19,7 +19,7 @@ gulp.task('sass', function() {
 
 // Tache browser sync avec injection CSS
 
-gulp.task('browser-sync', function() {
+gulp.task('default', function() {
     browserSync.init({
         server: {
             baseDir: "./"
