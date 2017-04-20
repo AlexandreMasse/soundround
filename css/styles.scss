@@ -84,17 +84,35 @@ main {
   background-color: $accentColor1;
   flex: 1;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
 
-  #show__container {
+  #show-help {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: $accentColor1;
+    background-color: $accentColor2;
+    height: 50px;
+    width: 200px;
+    border-radius: 25px;
+    font-size: 1.4rem;
+
+
+  }
+
+  #show-container {
     position: relative;
     max-width: 1440px;
     width: 100%;
 
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: 1;
 
     #cover {
       display: none;

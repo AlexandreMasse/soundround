@@ -33,7 +33,7 @@
                     document.getElementById('artist').innerText = tags.artist;
                 }
                 else {
-                    document.getElementById('artist').innerText = "";
+                    document.getElementById('artist').innerText = "Artiste inconnu";
                 }
 
                 //Album
@@ -131,15 +131,22 @@
 
         this.style.display = 'block';
 
-        //Récupération palette couleur avec ColorThief
+        document.getElementById('show-help').style.display = "none";
+        document.getElementById('show-container').style.display = "flex";
+
+
+
+
+        /***** Récupération palette couleur avec ColorThief *****/
+
         var colorThief = new ColorThief();
         var colors = colorThief.getPalette(cover, 2);
-        console.log(colors);
         var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
        /* var accentColor1t50 = 'rgb(' + colors[0].join(',') + ',0.5)';*/
         var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
         /*var accentColor2t50 = 'rgb(' + colors[1].join(',') + ',0.5)';
         console.log(accentColor2t50);*/
+
 
 
         /***** Application des couleurs *****/
@@ -302,9 +309,9 @@
 
 
 
-    /*****************************************
+    /***********************************************
      * Gestion controle et buttons
-     * *****************************************/
+     * ***********************************************/
 
 
     /***** Raccourci clavier *****/
@@ -482,6 +489,20 @@
         control.classList.remove('icon-control-pause');
         control.classList.add('icon-control-play');
         document.getElementById('cover').style.animationPlayState = "paused";
+    });
+
+
+
+    /***** Jouer sample *****/
+
+    document.getElementById('show-help').addEventListener('click', function () {
+
+        var root = location.protocol + '//' + location.host;
+
+        var music1 = root + '/audio/music.mp3';
+
+        getMetatags(music1);
+        audio.setAttribute('src', 'audio/music.mp3');
     });
 
 })();
