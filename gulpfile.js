@@ -1,6 +1,7 @@
 var gulp        = require('gulp'),
     sass        = require('gulp-sass'),
     plumber     = require('gulp-plumber'),
+    autoprefixer = require('gulp-autoprefixer'),
     browserSync = require('browser-sync').create();
 
 
@@ -19,6 +20,7 @@ gulp.task('sass', function() {
     return gulp.src('css/**/*.scss') // Prend tous les fichiers .scss dans le dossier /css
         .pipe(plumber()) // Empeche le la tache de s'arreter s'il y a une erreur
         .pipe(sass({outputStyle: 'expanded'}))   //Compile en css
+        .pipe(autoprefixer())
         .pipe(gulp.dest('css')) // Dossier de destination des css compilés
         .pipe(browserSync.stream());
 });
