@@ -71,8 +71,6 @@
                     });
                 }
 
-
-
             },
 
             onError: function(error) {
@@ -150,6 +148,7 @@
 
         var colorThief = new ColorThief();
         var colors = colorThief.getPalette(cover, 2);
+
         var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
        /* var accentColor1t50 = 'rgb(' + colors[0].join(',') + ',0.5)';*/
         var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
@@ -328,77 +327,79 @@
     document.addEventListener("keydown", function (e) {
         console.log(e);
 
-        // Espace : Play / Pause
-        if(e.keyCode === 32) {
-            audio.paused ? audio.play() : audio.pause();
-        }
-
-        //M : Mute / Unmute
-        if (e.keyCode === 77) {
-            audio.muted ? audio.muted = false : audio.muted = true;
-
-        }
-
-        //U : Upload file
-        if (e.keyCode === 85) {
-            document.getElementById("file-input").click();
-        }
-
-
-        //Haut : monter le son
-        if (e.keyCode === 38) {
-            if (audio.volume < 0.9) {
-                audio.volume += 0.1
-            } else {
-                audio.volume = 1;
+        //Si on est pas dans un champ input
+        if (e.target.nodeName.toLowerCase() !== 'input') {
+            // Espace : Play / Pause
+            if(e.keyCode === 32) {
+                audio.paused ? audio.play() : audio.pause();
             }
-        }
 
-        //Bas : baisser le son
-        if (e.keyCode === 40) {
-            if (audio.volume > 0.1) {
-                audio.volume -= 0.1
-            } else {
-                audio.volume = 0;
+            //M : Mute / Unmute
+            if (e.keyCode === 77) {
+                audio.muted ? audio.muted = false : audio.muted = true;
+
             }
-        }
 
-        //Gauche : reculer de 10 secondes
-        if (e.keyCode === 37) {
-            audio.currentTime -= 10;
-        }
-
-        //Droite : avancer de 10 secondes
-        if (e.keyCode === 39) {
-            audio.currentTime += 10;
-        }
+            //U : Upload file
+            if (e.keyCode === 85) {
+                document.getElementById("file-input").click();
+            }
 
 
-        //f : fullscreen
-
-        if (e.keyCode === 70) {
-            toggleFullScreen();
-        }
-
-        function toggleFullScreen() {
-            if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
-                if (document.documentElement.requestFullscreen) {
-                    document.documentElement.requestFullscreen();
-                } else if (document.documentElement.mozRequestFullScreen) {
-                    document.documentElement.mozRequestFullScreen();
-                } else if (document.documentElement.webkitRequestFullscreen) {
-                    document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                }
-            } else {
-                if (document.cancelFullScreen) {
-                    document.cancelFullScreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitCancelFullScreen) {
-                    document.webkitCancelFullScreen();
+            //Haut : monter le son
+            if (e.keyCode === 38) {
+                if (audio.volume < 0.9) {
+                    audio.volume += 0.1
+                } else {
+                    audio.volume = 1;
                 }
             }
+
+            //Bas : baisser le son
+            if (e.keyCode === 40) {
+                if (audio.volume > 0.1) {
+                    audio.volume -= 0.1
+                } else {
+                    audio.volume = 0;
+                }
+            }
+
+            //Gauche : reculer de 10 secondes
+            if (e.keyCode === 37) {
+                audio.currentTime -= 10;
+            }
+
+            //Droite : avancer de 10 secondes
+            if (e.keyCode === 39) {
+                audio.currentTime += 10;
+            }
+
+
+            //f : toogle fullscreen
+
+            if (e.keyCode === 70) {
+
+                if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
+                    if (document.documentElement.requestFullscreen) {
+                        document.documentElement.requestFullscreen();
+                    } else if (document.documentElement.mozRequestFullScreen) {
+                        document.documentElement.mozRequestFullScreen();
+                    } else if (document.documentElement.webkitRequestFullscreen) {
+                        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+                    }
+                } else {
+                    if (document.cancelFullScreen) {
+                        document.cancelFullScreen();
+                    } else if (document.mozCancelFullScreen) {
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitCancelFullScreen) {
+                        document.webkitCancelFullScreen();
+                    }
+                }
+            }
+
         }
+
 
     });
 
