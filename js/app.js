@@ -21,20 +21,12 @@
                 console.log("Titre : " + tags.title + " Artiste : " + tags.artist + " Album : " + tags.album);
 
                 //Titre
-                if (tags.title) {
-                    document.getElementById('title').innerText = tags.title;
-                }
-                else {
-                    document.getElementById('title').innerText = "Titre inconnu";
-                }
+                var title = tags.title ? tags.title : "Titre inconnu";
+                document.getElementById('title').innerText = title;
 
                 //Artist
-                if (tags.artist) {
-                    document.getElementById('artist').innerText = tags.artist;
-                }
-                else {
-                    document.getElementById('artist').innerText = "Artiste inconnu";
-                }
+                var artist = tags.artist ? tags.artist : "Artiste inconnu";
+                document.getElementById('artist').innerText = artist;
 
                 //Album
                 if (tags.album) {
@@ -64,6 +56,23 @@
                 } else {
                     document.getElementById('cover').style.display = "none";
                 }
+
+
+                /*Media Session API for Chrome mobile 57+*/
+
+                if ('mediaSession' in navigator) {
+
+                    navigator.mediaSession.metadata = new MediaMetadata({
+                        title: title,
+                        artist: artist,
+                        artwork: [
+                            { src: base64, sizes: '512x512' }
+                        ]
+                    });
+                }
+
+
+
             },
 
             onError: function(error) {
