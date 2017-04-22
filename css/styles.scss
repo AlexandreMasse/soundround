@@ -116,7 +116,7 @@ main {
   }
 
   #show-container {
-    //position: relative;
+    position: relative;
     max-width: 1440px;
     width: 100%;
 
@@ -327,6 +327,18 @@ main {
       margin-bottom: 0;
     }
 
+
+    /* Toggle Fullscreen */
+
+    button[class^='icon-window'] {
+      display: none;
+
+      @media screen and (min-width: $desktop) {
+        display: block;
+      }
+
+    }
+
     /* Play / pause */
 
     button[class^='icon-control-'] {
@@ -447,6 +459,16 @@ main {
         width: 20rem;
         margin: 0 0.5rem;
       }
+
+      @media screen and(min-width: $desktop) {
+        width: 24rem;
+      }
+
+      @media screen and(min-width: $desktopLarge) {
+        width: 30rem;
+      }
+
+
 
       &::after {
         position: absolute;

@@ -272,7 +272,6 @@
         var file = event.target.files[0];
         getMetatags(file);
         getURL(file);
-
         this.blur();
 
     }, false);
@@ -283,6 +282,7 @@
     /**********************************************
      * IMPORT DRAG & DROP
      * ********************************************/
+
 
     var dropZone = document.getElementById('drop-zone');
 
@@ -321,16 +321,56 @@
      * Gestion controle et buttons
      * ***********************************************/
 
+    /***** Enlever focus au clique *****/
+
+    /*var allControl = document.querySelectorAll('');*/
+
+    /***** Fonction réutilisable *****/
+
+    var toggleFullscreen = function () {
+
+        var fullscreen = document.querySelector("button[class^='icon-window']");
+        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            }
+
+            fullscreen.classList.remove('icon-window-expand');
+            fullscreen.classList.add('icon-window-minimize');
+
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+
+            fullscreen.classList.remove('icon-window-minimize');
+            fullscreen.classList.add('icon-window-expand');
+        }
+    };
+
 
     /***** Raccourci clavier *****/
 
     document.addEventListener("keydown", function (e) {
         console.log(e);
 
-        //Si on est pas dans un champ input
-        if (e.target.nodeName.toLowerCase() !== 'input') {
+
+        //Si on est pas dans un champ input type text
+        if (e.target.nodeName.toLowerCase() !== 'input' && e.target.type !== 'text') {
+
             // Espace : Play / Pause
             if(e.keyCode === 32) {
+                //Empeche comportement par defaut
+                e.preventDefault();
+                e.stopPropagation();
                 audio.paused ? audio.play() : audio.pause();
             }
 
@@ -378,24 +418,7 @@
             //f : toogle fullscreen
 
             if (e.keyCode === 70) {
-
-                if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
-                    if (document.documentElement.requestFullscreen) {
-                        document.documentElement.requestFullscreen();
-                    } else if (document.documentElement.mozRequestFullScreen) {
-                        document.documentElement.mozRequestFullScreen();
-                    } else if (document.documentElement.webkitRequestFullscreen) {
-                        document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                    }
-                } else {
-                    if (document.cancelFullScreen) {
-                        document.cancelFullScreen();
-                    } else if (document.mozCancelFullScreen) {
-                        document.mozCancelFullScreen();
-                    } else if (document.webkitCancelFullScreen) {
-                        document.webkitCancelFullScreen();
-                    }
-                }
+                toggleFullscreen();
             }
 
         }
@@ -420,6 +443,14 @@
 
     });
 
+
+    /***** Fullscreen *****/
+
+    var fullscreen = document.querySelector("button[class^='icon-window']");
+
+    fullscreen.addEventListener('click', function () {
+       toggleFullscreen();
+    });
 
 
     /***** Volume *****/
@@ -507,12 +538,12 @@
 
     document.getElementById('show-help').addEventListener('click', function () {
 
-        var root = location.protocol + '//' + location.host;
-
+        var root = location.protocol + '//' + location.host + '/sound';
         var music1 = root + '/audio/music.mp3';
-
         getMetatags(music1);
+
         audio.setAttribute('src', 'audio/music.mp3');
+        audio.play();
     });
 
 })();
