@@ -35,41 +35,85 @@
 
 
 
-    function animer() {
-        requestAnimationFrame(animer);
+    
+    
+    function animationTroisCercles() {
+        requestAnimationFrame(animationTroisCercles);
 
         analyseur.getByteFrequencyData(tableauDonnees);
+        
+        var intervale = Math.floor(tableauDonnees.length / 3);
 
-        ctx.fillStyle = 'rgb(0, 0, 0)';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        console.log(intervale);
 
-        var largeurBarre = (canvas.width / tailleMemoireTampon) * 2.5;
-        var hauteurBarre;
-        var x = 0;
 
-        var total = 0;
-        for (var j = 0; j < tableauDonnees.length; j++) {
-            total += tableauDonnees[j];
+        /*** Premier cercle ***/
+
+        var total1 = 0;
+
+        for (var i = 0; i < intervale ; i++) {
+            total1 += tableauDonnees[i];
         }
 
-        var moyenne = Math.floor(total / tableauDonnees.length);
+        var moyenne1 = total1 / intervale;
+
+
+        cercles[0].style.width = cover.offsetWidth + moyenne1  + 'px';
+        cercles[0].style.height = cover.offsetHeight + moyenne1  + 'px';
+
+
+
+        /*** Deuxième cercle ***/
+
+        var total2 = 0;
+
+        for (var i = intervale; i < 2 * intervale; i++) {
+            total2 += tableauDonnees[i];
+
+        }
+
+        var moyenne2 = total2 / intervale;
+
+
+        cercles[1].style.width = cover.offsetWidth + moyenne2  + 'px';
+        cercles[1].style.height = cover.offsetHeight + moyenne2 + 'px';
+
+
+
+        /*** Troisième cercle ***/
+
+        var total3 = 0;
+
+        for (var i = 2 * intervale; i < tableauDonnees.length; i++) {
+            total3 += tableauDonnees[i];
+
+        }
+
+        var moyenne3 = total3 / intervale;
+
+
+        cercles[2].style.width = cover.offsetWidth + moyenne3 * 2.5 + 'px';
+        cercles[2].style.height = cover.offsetHeight + moyenne3 * 2.5 + 'px';
+
+        
+
 
         // console.log(moyenne);
 
         // document.getElementById('cover').style.width = moyenne + 'px';
         // document.getElementById('cover').style.height = moyenne + 'px';
 
-        var animation = document.getElementById('animation');
-        // console.log(cercles);
-
-        for (var c = 0; c < cercles.length; c++) {
-            var cercle = cercles[c];
-            // console.log(cercle.style.borderWidth);
-
-            cercle.style.width = cover.offsetWidth + moyenne * 1.5 + 'px';
-            cercle.style.height = cover.offsetHeight + moyenne * 1.5 + 'px';
-            // console.log(cercle.getPropertyValue('border-width'));
-        }
+        // var animation = document.getElementById('animation');
+        // // console.log(cercles);
+        //
+        // for (var c = 0; c < cercles.length; c++) {
+        //     var cercle = cercles[c];
+        //     // console.log(cercle.style.borderWidth);
+        //
+        //     cercle.style.width = cover.offsetWidth + moyenne * 1.5 + 'px';
+        //     cercle.style.height = cover.offsetHeight + moyenne * 1.5 + 'px';
+        //     // console.log(cercle.getPropertyValue('border-width'));
+        // }
 
         // animation.style.height = cover.offsetHeight + moyenne + 'px';
         // animation.style.width = cover.offsetWidth + moyenne + 'px';
@@ -77,18 +121,28 @@
 
 
 
-        for(var i = 0; i < tailleMemoireTampon; i++) {
 
-            hauteurBarre = moyenne * 3 ;
 
-            ctx.fillStyle = 'rgb(' + (hauteurBarre+100) + ',50,50)';
-            ctx.fillRect(x,canvas.height-hauteurBarre/2,largeurBarre,hauteurBarre);
-
-            x += largeurBarre + 1;
-        }
+        // ctx.fillStyle = 'rgb(0, 0, 0)';
+        // ctx.fillRect(0, 0, canvas.width, canvas.height);
+        //
+        // var largeurBarre = (canvas.width / tailleMemoireTampon) * 2.5;
+        // var hauteurBarre;
+        // var x = 0;
+        //
+        //
+        // for(var i = 0; i < tailleMemoireTampon; i++) {
+        //
+        //     hauteurBarre = moyenne * 3 ;
+        //
+        //     ctx.fillStyle = 'rgb(' + (hauteurBarre+100) + ',50,50)';
+        //     ctx.fillRect(x,canvas.height-hauteurBarre/2,largeurBarre,hauteurBarre);
+        //
+        //     x += largeurBarre + 1;
+        // }
     };
 
-    animer();
+    animationTroisCercles();
 
 
 

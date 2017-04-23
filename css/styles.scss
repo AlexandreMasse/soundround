@@ -33,8 +33,10 @@ $desktopXlarge : 1440px;
     justify-content: center;
     align-items:center;
 
+    transition: all .1s;
+
     //Epaisseur cercle animé géré avec le padding du cercle parrent
-    padding: 5px;
+    padding: 4px;
 
     //Couleur cercle animé géré avec le fond du cercle parrent
     background-color: pink;
