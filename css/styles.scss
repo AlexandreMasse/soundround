@@ -14,6 +14,63 @@ $desktopXlarge : 1440px;
 
 
 
+ canvas {
+   display: none;
+ }
+
+.test {
+  position: relative;
+  text-align: center;
+
+  div[class^='cercle-'] {
+    position: absolute;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+
+    display: flex;
+    justify-content: center;
+    align-items:center;
+
+    //Epaisseur cercle animé géré avec le padding du cercle parrent
+    padding: 5px;
+
+    //Couleur cercle animé géré avec le fond du cercle parrent
+    background-color: pink;
+
+    &.cercle-1 {
+      //background-color: red;
+      //width: 500px;
+      //height: 500px;
+    }
+
+    &.cercle-2 {
+      //background-color: green;
+      //width: 400px;
+      //height: 400px;
+    }
+    &.cercle-3 {
+      //background-color: blue;
+      //width: 300px;
+      //height: 300px;
+    }
+
+    div[class^='sous-cercle-'] {
+      background-color: blue;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+
+  }
+
+
+
+}
+
+
+
 /*keyframe*/
 
 @keyframes cover-rotate {
@@ -126,42 +183,56 @@ main {
     align-items: center;
     flex: 1;
 
-    #cover {
-      z-index: 0;
-      display: none;
-      width: 13rem;
-      height: 13rem;
-      object-fit: cover;
+
+    #animation {
+      display: flex;
+      justify-content: center;
+      align-items:center;
       border-radius: 50%;
-
-      margin-top: 2.8rem;
-
-      animation-name: cover-rotate;
-      animation-duration: 15s;
-      animation-play-state: paused;
-      animation-iteration-count: infinite;
-      animation-timing-function: linear;
+      background-color: pink;
+      border: red 20px;
+      //transition: all .1s;
+      margin-top: 4rem;
 
       @media screen and (min-width: $tabletPortrait) {
         margin-top: 0;
-        width: 15rem;
-        height: 15rem;
-
-      }
-      @media screen and (min-width: $tabletLandscape) {
-        width: 16rem;
-        height: 16rem;
-
       }
 
-      @media screen and (min-width: $desktop) {
-        width: 17rem;
-        height: 17rem;
+      #cover {
+        z-index: 3;
+        display: none;
+        width: 13rem;
+        height: 13rem;
+        object-fit: cover;
+        border-radius: 50%;
+
+        animation-name: cover-rotate;
+        animation-duration: 15s;
+        animation-play-state: paused;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+
+        @media screen and (min-width: $tabletPortrait) {
+          width: 15rem;
+          height: 15rem;
+
+        }
+        @media screen and (min-width: $tabletLandscape) {
+          width: 16rem;
+          height: 16rem;
+
+        }
+
+        @media screen and (min-width: $desktop) {
+          width: 17rem;
+          height: 17rem;
+
+        }
 
       }
-
-
     }
+
+
 
 
     #meta {

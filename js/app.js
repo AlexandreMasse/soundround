@@ -1,8 +1,100 @@
 'use strict';
 (function() {
 
-    var audio = document.getElementById('audio');
-    var volume = 50; //Sur 100
+    var audio = document.getElementById('audio'), // Element Audio
+        cover = document.getElementById('cover'), // Illustration Musique
+        cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
+        sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
+        volume = 50, //Sur 100
+
+        contexteAudio = new (window.AudioContext || window.webkitAudioContext)(),
+        analyseur = contexteAudio.createAnalyser(),
+        source = contexteAudio.createMediaElementSource(audio);
+
+    source.connect(analyseur);
+    analyseur.connect(contexteAudio.destination);
+    analyseur.fftSize = 128;
+
+    var tailleMemoireTampon = analyseur.frequencyBinCount,
+        tableauDonnees = new Uint8Array(tailleMemoireTampon);
+
+    console.log(tailleMemoireTampon);
+
+
+    //Animation test canvas
+
+    var canvas = document.getElementsByTagName('canvas')[0];
+    console.log(canvas);
+    canvas.width = 800;
+    canvas.height = 200;
+    var ctx = canvas.getContext('2d');
+   /* var centerX = canvas.width / 2;
+    var centerY = canvas.height / 2;*/
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+
+    function animer() {
+        requestAnimationFrame(animer);
+
+        analyseur.getByteFrequencyData(tableauDonnees);
+
+        ctx.fillStyle = 'rgb(0, 0, 0)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        var largeurBarre = (canvas.width / tailleMemoireTampon) * 2.5;
+        var hauteurBarre;
+        var x = 0;
+
+        var total = 0;
+        for (var j = 0; j < tableauDonnees.length; j++) {
+            total += tableauDonnees[j];
+        }
+
+        var moyenne = Math.floor(total / tableauDonnees.length);
+
+        // console.log(moyenne);
+
+        // document.getElementById('cover').style.width = moyenne + 'px';
+        // document.getElementById('cover').style.height = moyenne + 'px';
+
+        var animation = document.getElementById('animation');
+        // console.log(cercles);
+
+        for (var c = 0; c < cercles.length; c++) {
+            var cercle = cercles[c];
+            // console.log(cercle.style.borderWidth);
+
+            cercle.style.width = cover.offsetWidth + moyenne * 1.5 + 'px';
+            cercle.style.height = cover.offsetHeight + moyenne * 1.5 + 'px';
+            // console.log(cercle.getPropertyValue('border-width'));
+        }
+
+        // animation.style.height = cover.offsetHeight + moyenne + 'px';
+        // animation.style.width = cover.offsetWidth + moyenne + 'px';
+
+
+
+
+        for(var i = 0; i < tailleMemoireTampon; i++) {
+
+            hauteurBarre = moyenne * 3 ;
+
+            ctx.fillStyle = 'rgb(' + (hauteurBarre+100) + ',50,50)';
+            ctx.fillRect(x,canvas.height-hauteurBarre/2,largeurBarre,hauteurBarre);
+
+            x += largeurBarre + 1;
+        }
+    };
+
+    animer();
+
+
+
+
+
+
 
     /************************************************
      * RECUPERATION DONNEES MUSIQUE
@@ -131,8 +223,6 @@
      * CHANGEMENT DE COULEUR
      * ***********************************************/
 
-    var cover = document.getElementById("cover");
-
     //Dès que l'image charge
     cover.addEventListener("load", function () {
 
@@ -170,6 +260,20 @@
         document.getElementById('panel').style.backgroundColor = accentColor1;
         document.getElementById('panel').style.color = accentColor2;
 
+
+        /*** Cercles animés ***/
+
+        //Cercles
+        for (var i = 0; i < cercles.length; i++) {
+            var cercle = cercles[i];
+            cercle.style.backgroundColor = accentColor1;
+        }
+
+        //Sous-cercles
+        for (i = 0; i < sousCercles.length; i++) {
+            var sousCercle = sousCercles[i];
+            sousCercle.style.backgroundColor = accentColor2;
+        }
 
         /*** Metas ***/
 
@@ -538,8 +642,10 @@
 
     document.getElementById('show-help').addEventListener('click', function () {
 
-        var root = location.protocol + '//' + location.host + '/sound';
+        var root = location.href;
+
         var music1 = root + '/audio/music.mp3';
+
         getMetatags(music1);
 
         audio.setAttribute('src', 'audio/music.mp3');
