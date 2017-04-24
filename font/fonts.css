@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icon';
-  src:  url('icon/icon.eot?eemhao');
-  src:  url('icon/icon.eot?eemhao#iefix') format('embedded-opentype'),
-    url('icon/icon.ttf?eemhao') format('truetype'),
-    url('icon/icon.woff?eemhao') format('woff'),
-    url('icon/icon.svg?eemhao#icon') format('svg');
+  src:  url('icon/icon.eot?jdfitr');
+  src:  url('icon/icon.eot?jdfitr#iefix') format('embedded-opentype'),
+    url('icon/icon.ttf?jdfitr') format('truetype'),
+    url('icon/icon.woff?jdfitr') format('woff'),
+    url('icon/icon.svg?jdfitr#icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-spotify:before {
+  content: "\e90c";
+}
 .icon-window-minimize:before {
   content: "\e90a";
 }
