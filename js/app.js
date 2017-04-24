@@ -5,7 +5,7 @@
         cover = document.getElementById('cover'), // Illustration Musique
         cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
         sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
-        volume = 50; //Sur 100
+        volume = 100; //Sur 100
 
 
     /******************************************
@@ -30,7 +30,7 @@
 
     var microphoneRecord = document.getElementById('microphone-record');
 
-    navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    /*navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
 
     if (navigator.getUserMedia) {
@@ -65,7 +65,7 @@
         );
     } else {
         alert('getUserMedia not supported !');
-    }
+    }*/
 
 
 
@@ -75,18 +75,63 @@
      * *************************************************/
 
 
-    /******* Animation 3 cercles ********/
+    /******* Animation 2 circles ********/
 
+    function animationTwoCircles() {
+        requestAnimationFrame(animationTwoCircles);
+
+        analyseur.getByteFrequencyData(tableauDonnees);
+
+        var intervale = Math.floor(tableauDonnees.length /2);
+
+        // console.log(tableauDonnees);
+
+        /*** First circle ***/
+
+        var total1 = 0;
+
+        for (var i = 0; i < intervale ; i++) {
+            total1 += tableauDonnees[i];
+        }
+
+        var moyenne1 = total1 / intervale;
+
+        cercles[0].style.width = cover.offsetWidth + moyenne1 + 'px';
+        cercles[0].style.height = cover.offsetHeight + moyenne1 + 'px';
+
+        cercles[0].style.borderWidth = 3 + Math.floor(moyenne1 /12) + 'px';
+
+
+        /*** Second circle ***/
+
+        var total2 = 0;
+
+        for (var i = intervale; i < tableauDonnees.length; i++) {
+            total2 += tableauDonnees[i];
+
+        }
+
+        var moyenne2 = total2 / intervale;
+
+        cercles[1].style.width = cover.offsetWidth + moyenne2 * 1.3 + 'px';
+        cercles[1].style.height = cover.offsetHeight + moyenne2  * 1.3 + 'px';
+
+        cercles[1].style.borderWidth = 3 + Math.floor(moyenne2 / 8) + 'px';
+
+
+    }
+
+
+    /******* Animation 3 circles ********/
 
     function animationTroisCercles() {
         requestAnimationFrame(animationTroisCercles);
 
         analyseur.getByteFrequencyData(tableauDonnees);
-        
+
         var intervale = Math.floor(tableauDonnees.length / 3);
 
         // console.log(tableauDonnees);
-
 
         /*** Premier cercle ***/
 
@@ -100,6 +145,7 @@
 
         cercles[0].style.width = cover.offsetWidth + moyenne1  + 'px';
         cercles[0].style.height = cover.offsetHeight + moyenne1  + 'px';
+
 
 
         /*** Deuxième cercle ***/
@@ -214,8 +260,8 @@
     //animationCanvasBars();
 
 
-    animationTroisCercles();
-
+    // animationTroisCercles();
+    animationTwoCircles();
 
 
 
