@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <!--Favicon-->
     <link type="image/x-icon" rel="shortcut icon" href="img/favicon.png">
+    <script src="js/app.js"></script>
 
 </head>
 <body>
@@ -41,13 +42,13 @@
 
                 <div id="animation" class="test">
                     <div class="cercle-1">
-                        <div class="sous-cercle-1"></div>
+                        <!--<div class="sous-cercle-1"></div>-->
                     </div>
                     <div class="cercle-2">
-                        <div class="sous-cercle-2"></div>
+                        <!--<div class="sous-cercle-2"></div>-->
                     </div>
                     <div class="cercle-3">
-                        <div class="sous-cercle-3"></div>
+                       <!-- <div class="sous-cercle-3"></div>-->
                     </div>
                     <img src="#" alt="Album cover" id="cover">
                 </div>
@@ -82,24 +83,23 @@
                 <button id="file-button" class="icon-folder"></button>
                 <button class="icon-microphone"></button>
             </div>
-            <div id="soundcloud">
+            <div id="soundcloud-spotify">
                 <a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
                 </a>
                 <div>
-                    <input type="text" placeholder="URL musique Soundcloud">
+                    <input id="input-text" type="text" placeholder="Spotify URL">
                 </div>
 
-                <button class="icon-soundcloud-play"></button>
+                <button class="icon-soundcloud-play" id="input-text-submit"></button>
             </div>
         </section>
 
     </main>
 
-
-
 </body>
 
 <script src="js/jsmediatags.min.js"></script>
+<script src="js/spotify-web-api.js"></script>
 <script src="js/color-thief.min.js"></script>
 <script src="js/app.js"></script>
 

@@ -22,8 +22,14 @@
 
 
 
-    /******* Animation 3cercles ********/
-    
+    /*****************************************
+     * AUDIO ANIMATION WITH WEB AUDIO API
+     * *****************************************/
+
+
+    /******* Animation 3 cercles ********/
+
+
     function animationTroisCercles() {
         requestAnimationFrame(animationTroisCercles);
 
@@ -31,7 +37,7 @@
         
         var intervale = Math.floor(tableauDonnees.length / 3);
 
-        console.log(tableauDonnees);
+        // console.log(tableauDonnees);
 
 
         /*** Premier cercle ***/
@@ -59,8 +65,8 @@
 
         var moyenne2 = total2 / intervale;
 
-        cercles[1].style.width = cover.offsetWidth + moyenne2  + 'px';
-        cercles[1].style.height = cover.offsetHeight + moyenne2 + 'px';
+        cercles[1].style.width = cover.offsetWidth + moyenne2 * 0.8 + 'px';
+        cercles[1].style.height = cover.offsetHeight + moyenne2 * 0.8 + 'px';
 
 
         /*** Troisième cercle ***/
@@ -74,14 +80,15 @@
 
         var moyenne3 = total3 / intervale;
 
-        cercles[2].style.width = cover.offsetWidth + moyenne3 * 2.5 + 'px';
-        cercles[2].style.height = cover.offsetHeight + moyenne3 * 2.5 + 'px';
+        cercles[2].style.width = cover.offsetWidth + moyenne3 * 2.3 + 'px';
+        cercles[2].style.height = cover.offsetHeight + moyenne3 * 2.3 + 'px';
 
-    };
+    }
 
 
 
     /****** Animation Canvas Bars ******/
+
 
     var canvas = document.getElementsByTagName('canvas')[0];
     console.log(canvas);
@@ -90,8 +97,6 @@
     var ctx = canvas.getContext('2d');
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-
 
 
     function animationCanvasBars() {
@@ -158,12 +163,10 @@
     // animation.style.width = cover.offsetWidth + moyenne + 'px';
 
 
-    animationCanvasBars();
+    //animationCanvasBars();
 
 
-    //animationTroisCercles();
-
-
+    animationTroisCercles();
 
 
 
@@ -172,6 +175,8 @@
     /************************************************
      * RECUPERATION DONNEES MUSIQUE
      * **********************************************/
+
+
 
     /***** Récupération metatags *****/
 
@@ -286,8 +291,10 @@
 
     var getURL = function (file) {
         var url = window.URL.createObjectURL(file);
-        audio.setAttribute("src", url);
+        audio.setAttribute('src', url);
     };
+
+
 
 
 
@@ -295,6 +302,8 @@
     /*************************************************
      * CHANGEMENT DE COULEUR
      * ***********************************************/
+
+
 
     //Dès que l'image charge
     cover.addEventListener("load", function () {
@@ -313,10 +322,7 @@
         var colors = colorThief.getPalette(cover, 2);
 
         var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
-       /* var accentColor1t50 = 'rgb(' + colors[0].join(',') + ',0.5)';*/
         var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
-        /*var accentColor2t50 = 'rgb(' + colors[1].join(',') + ',0.5)';
-        console.log(accentColor2t50);*/
 
 
 
@@ -339,14 +345,16 @@
         //Cercles
         for (var i = 0; i < cercles.length; i++) {
             var cercle = cercles[i];
-            cercle.style.backgroundColor = accentColor1;
+
+            // cercle.style.backgroundColor = accentColor1;
+            cercle.style.borderColor = accentColor1;
         }
 
         //Sous-cercles
-        for (i = 0; i < sousCercles.length; i++) {
+       /* for (i = 0; i < sousCercles.length; i++) {
             var sousCercle = sousCercles[i];
             sousCercle.style.backgroundColor = accentColor2;
-        }
+        }*/
 
         /*** Metas ***/
 
@@ -385,13 +393,13 @@
         style.innerHTML += 'input[type=\'range\']::-ms-thumb{ background-color: ' + accentColor1 + '!important;}';
 
         //Soundcloud input
-        style.innerHTML += '#soundcloud div::after {background-color: ' + accentColor2+ '!important;}';
+        style.innerHTML += '#soundcloud-spotify div::after {background-color: ' + accentColor2+ '!important;}';
 
-        style.innerHTML += '#soundcloud input::-webkit-input-placeholder {color: ' + accentColor2 + '!important;}';
+        style.innerHTML += '#soundcloud-spotify input::-webkit-input-placeholder {color: ' + accentColor2 + '!important;}';
 
-        style.innerHTML += '#soundcloud input::-moz-placeholder {color: ' + accentColor2 + '!important;}';
+        style.innerHTML += '#soundcloud-spotify input::-moz-placeholder {color: ' + accentColor2 + '!important;}';
 
-        style.innerHTML += '#soundcloud input:-ms-input-placeholder {color: ' + accentColor2 + '!important;}';
+        style.innerHTML += '#soundcloud-spotify input:-ms-input-placeholder {color: ' + accentColor2 + '!important;}';
 
 
 
@@ -429,9 +437,10 @@
 
 
 
-    /******************************************
+    /*********************************************
      * IMPORT INPUT TYPE FILE
-     * *****************************************/
+     * ********************************************/
+
 
     var fileInput = document.getElementById("file-input");
     var fileButton = document.getElementById("file-button");
@@ -494,44 +503,108 @@
 
 
 
-    /***********************************************
-     * Gestion controle et buttons
+    /************************************************
+     * IMPORT SPOTIFY
      * ***********************************************/
 
-    /***** Enlever focus au clique *****/
 
-    /*var allControl = document.querySelectorAll('');*/
+    var spotify = new SpotifyWebApi();
 
-    /***** Fonction réutilisable *****/
+    //Prevent the CORS access restriction for Spotify
+    audio.crossOrigin = "anonymous";
+    cover.crossOrigin = "anonymous";
 
-    var toggleFullscreen = function () {
 
-        var fullscreen = document.querySelector("button[class^='icon-window']");
-        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
-            if (document.documentElement.requestFullscreen) {
-                document.documentElement.requestFullscreen();
-            } else if (document.documentElement.mozRequestFullScreen) {
-                document.documentElement.mozRequestFullScreen();
-            } else if (document.documentElement.webkitRequestFullscreen) {
-                document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+    /*** Get ID of track from URL ***/
+
+    var spotifyUrlToId = function(url) {
+        //If 'spotify:' exist in url
+        if (url.indexOf('spotify:') !== -1) {
+            //If 'spotify:track:' exist in url
+            if (url.indexOf('spotify:track:') !== -1) {
+                //Return the end of the url (the id)
+                return url.split('spotify:track:')[1];
+            } else {
+                throw new TypeError('The URI does not belong to a track.');
             }
-
-            fullscreen.classList.remove('icon-window-expand');
-            fullscreen.classList.add('icon-window-minimize');
-
+            //If 'spotify.com/' exist in url
+        } else if (url.indexOf('spotify.com/') !== -1) {
+            //If 'spotify.com/track/' exist in url
+            if (url.indexOf('spotify.com/track/') !== -1) {
+                //Return the end of url (the id)
+                return url.split('spotify.com/track/')[1];
+            } else {
+                throw new TypeError('The URI does not belong to a track.');
+            }
         } else {
-            if (document.cancelFullScreen) {
-                document.cancelFullScreen();
-            } else if (document.mozCancelFullScreen) {
-                document.mozCancelFullScreen();
-            } else if (document.webkitCancelFullScreen) {
-                document.webkitCancelFullScreen();
-            }
-
-            fullscreen.classList.remove('icon-window-minimize');
-            fullscreen.classList.add('icon-window-expand');
+            return url;
         }
     };
+
+    /*** Get data music from JSON ***/
+
+    var getSpotifyData = function (json) {
+
+        //30s of preview
+        var url = json.preview_url;
+        if (url === null ) {
+            console.log('pas de prewiew pour cette musique');
+        } else {
+            audio.setAttribute('src', url);
+        }
+
+        //Song name
+        document.getElementById('title').innerText = json.name;
+
+        //Artist
+        document.getElementById('artist').innerText = json.artists[0].name;
+
+        //Album name
+        document.getElementById('album').innerText = json.album.name;
+
+        //Album cover image
+        document.getElementById('cover').setAttribute('src', json.album.images[0].url);
+
+    };
+
+    /*** Text Input Submit ***/
+
+    document.getElementById('input-text-submit').addEventListener('click', function () {
+
+        //Text from input
+        var textInput = document.getElementById('input-text').value;
+
+        //URL to id
+        var id = spotifyUrlToId(textInput);
+
+        //Get track with ID
+        spotify.getTrack(id, function (err, json) {
+            if (err) {
+                console.error(err);
+            } else {
+                console.log('Music', json);
+                getSpotifyData(json);
+
+                document.getElementById('input-text').blur();
+                document.getElementById('input-text').value = "";
+
+                audio.addEventListener('canplay', function () {
+                    audio.play();
+                });
+            }
+        });
+
+
+
+    });
+
+
+
+
+
+    /***********************************************
+     * CONTROLS AND BUTTONS
+     * ***********************************************/
 
 
     /***** Raccourci clavier *****/
@@ -595,9 +668,17 @@
             //f : toogle fullscreen
 
             if (e.keyCode === 70) {
-                toggleFullscreen();
+                document.querySelector("button[class^='icon-window']").click();
             }
 
+
+        //If we are in input type text
+        } else {
+
+            //Enter key : submit text of input
+            if (e.keyCode === 13) {
+                document.getElementById('input-text-submit').click();
+            }
         }
 
 
@@ -621,13 +702,39 @@
     });
 
 
-    /***** Fullscreen *****/
+
+    /***** Toggle Fullscreen *****/
 
     var fullscreen = document.querySelector("button[class^='icon-window']");
 
     fullscreen.addEventListener('click', function () {
-       toggleFullscreen();
+
+        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement) {
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            }
+
+            fullscreen.classList.remove('icon-window-expand');
+            fullscreen.classList.add('icon-window-minimize');
+
+        } else {
+            if (document.cancelFullScreen) {
+                document.cancelFullScreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitCancelFullScreen) {
+                document.webkitCancelFullScreen();
+            }
+
+            fullscreen.classList.remove('icon-window-minimize');
+            fullscreen.classList.add('icon-window-expand');
+        }
     });
+
 
 
     /***** Volume *****/
@@ -666,7 +773,6 @@
     });
 
 
-
     //Slider
 
     var volumeSlider = document.getElementById('volume-slider');
@@ -684,6 +790,7 @@
         volumeSlider.value =  e.path[0].volume * 100;
 
     });
+
 
 
     /***** Play et pause *****/
@@ -722,6 +829,7 @@
         getMetatags(music1);
 
         audio.setAttribute('src', 'audio/music.mp3');
+
         audio.play();
     });
 
