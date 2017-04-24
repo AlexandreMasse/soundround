@@ -228,19 +228,6 @@
                 }
 
 
-                /*Media Session API for Chrome mobile 57+*/
-
-                if ('mediaSession' in navigator) {
-
-                    navigator.mediaSession.metadata = new MediaMetadata({
-                        title: title,
-                        artist: artist,
-                        artwork: [
-                            { src: base64, sizes: '512x512' }
-                        ]
-                    });
-                }
-
             },
 
             onError: function(error) {
@@ -287,12 +274,31 @@
     });
 
 
-    //Création de l'url pour la source audio
+    /**** Création de l'url pour la source audio ****/
 
     var getURL = function (file) {
         var url = window.URL.createObjectURL(file);
         audio.setAttribute('src', url);
     };
+
+
+    /**** Media Session API for Chrome mobile 57+ ****/
+
+
+    //When audio ready
+    audio.addEventListener('canplay', function () {
+
+        if ('mediaSession' in navigator) {
+
+            navigator.mediaSession.metadata = new MediaMetadata({
+                title: document.getElementById('title').innerText,
+                artist: document.getElementById('artist').innerText,
+                artwork: [
+                    { src: document.getElementById('cover').getAttribute('src'), sizes: '512x512' }
+                ]
+            });
+        }
+    });
 
 
 
@@ -392,7 +398,7 @@
 
         style.innerHTML += 'input[type=\'range\']::-ms-thumb{ background-color: ' + accentColor1 + '!important;}';
 
-        //Soundcloud input
+        //URL input
         style.innerHTML += '#soundcloud-spotify div::after {background-color: ' + accentColor2+ '!important;}';
 
         style.innerHTML += '#soundcloud-spotify input::-webkit-input-placeholder {color: ' + accentColor2 + '!important;}';
