@@ -5,15 +5,20 @@
         cover = document.getElementById('cover'), // Illustration Musique
         cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
         sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
-        volume = 50, //Sur 100
+        volume = 50; //Sur 100
 
-        contexteAudio = new (window.AudioContext || window.webkitAudioContext)(),
+
+    /******************************************
+     * WEB AUDIO API SETTINGS
+     * ******************************************/
+
+    var contexteAudio = new (window.AudioContext || window.webkitAudioContext)(),
         analyseur = contexteAudio.createAnalyser(),
         source = contexteAudio.createMediaElementSource(audio);
 
     source.connect(analyseur);
     analyseur.connect(contexteAudio.destination);
-    analyseur.fftSize = 128  ;
+    analyseur.fftSize = 128;
 
     var tailleMemoireTampon = analyseur.frequencyBinCount,
         tableauDonnees = new Uint8Array(tailleMemoireTampon);
@@ -21,10 +26,53 @@
     console.log(tailleMemoireTampon);
 
 
+    /***** Microphone record test - NEED secure origins (https or localhost) *****/
 
-    /*****************************************
+    var microphoneRecord = document.getElementById('microphone-record');
+
+    navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+
+
+    if (navigator.getUserMedia) {
+        console.log('getUserMedia supported.');
+        navigator.getUserMedia (
+            //only audio needed
+            {
+                audio: true
+            },
+
+            //Success
+            function(micophoneStream) {
+
+                microphoneRecord.onclick = function() {
+                    contexteAudio = new (window.AudioContext || window.webkitAudioContext)();
+                    source = contexteAudio.createMediaStreamSource(micophoneStream);
+                    analyseur = contexteAudio.createAnalyser();
+                    source.connect(analyseur);
+
+                    audio.pause();
+
+                    microphoneRecord.style.background = "red";
+                    microphoneRecord.style.color = "green";
+                }
+
+            },
+
+            //Error
+            function(err) {
+                console.log('getUserMedia error : ' + err);
+            }
+        );
+    } else {
+        alert('getUserMedia not supported !');
+    }
+
+
+
+
+    /**************************************************
      * AUDIO ANIMATION WITH WEB AUDIO API
-     * *****************************************/
+     * *************************************************/
 
 
     /******* Animation 3 cercles ********/
