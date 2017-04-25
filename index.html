@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <meta name="theme-color" content="#000000">
@@ -23,28 +24,72 @@
 
 </head>
 <body>
+
+    <!-- Hidden elements -->
+
     <audio src="#" autoplay="autoplay" controls="controls" id="audio"></audio>
     <input type="file" id="file-input">
+
+    <!-- Drag & drop zone-->
+
     <div id="drop-zone" class="hidden">
         <p>Glissez-déposez votre musique</p>
     </div>
 
-    <main>
+    <!-- Intro -->
 
-        <section id="intro">
+    <section id="intro">
+        <h1>SoundRound</h1>
+        <h2>Choisissez une source audio :</h2>
 
-        </section>
+        <div id="sources">
+            <div id="source-local">
+                <!--<button class="icon-folder"></button>-->
+                <h3>Musique locale</h3>
+                <p>Importez une musique stockée dans votre smartphone</p>
+                <!--<p>Via un drag & drop dans la fenêtre du navigateur ou bien via le bouton dédié</p>-->
+            </div>
 
+            <div id="split1"></div>
+
+            <div id="source-external">
+                <!--<div class="logos">-->
+                    <!--<button class="icon-spotify"></button>-->
+                    <!--<button class="icon-soundcloud"></button>-->
+                <!--</div>-->
+                <h3>SoundCloud / Spotify</h3>
+                <p>Copiez-collez l'URL d'une musique hébergée sur Soundcloud ou Spotify</p>
+                <div>
+                    <input type="text" placeholder="Collez URL Spotify / Soundcloud">
+                </div>
+            </div>
+
+            <div id="split2"></div>
+
+            <div id="source-sample">
+                <!--<button class="icon-control-play"></button>-->
+                <h3>Jouer un sample</h3>
+                <p>Jouez "Litozmania" de Phoenix</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- PLayer -->
+
+    <main id="player">
+
+        <!-- Visualization -->
 
         <section id="show">
+
+            <!-- Sample -->
 
             <div id="show-help">
                 <p>Jouer une musique</p>
             </div>
 
-            <div id="show-container">
-                
 
+            <div id="show-container">
 
                 <div id="animation" class="test">
                     <div class="cercle-1">
@@ -66,6 +111,7 @@
                     <p id="current-time"></p>
                     <p id="duration"></p>
                 </div>
+
             </div>
 
             <canvas>
@@ -75,9 +121,14 @@
         </section>
 
 
+        <!-- Timeline -->
+
         <section id="timeline">
             <div id="timeline-progress"></div>
         </section>
+
+
+        <!-- Control panel -->
 
         <section id="panel">
             <div id="control">

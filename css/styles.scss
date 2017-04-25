@@ -1,9 +1,12 @@
-/*Couleurs*/
+/****** Couleurs *******/
 
 $accentColor1 : white;
+$accentColor1t50 : rgba(255, 255, 255, 0.5);
 $accentColor2 : black;
+$accentColor2t50 : rgba(0, 0, 0, 0.50);
 
-/*Media queries*/
+
+/****** Media queries *******/
 
 $mobileLarge : 400px;
 $tabletPortrait : 650px;
@@ -18,14 +21,9 @@ $desktopXlarge : 1440px;
    display: none;
  }
 
-.test {
 
 
-}
-
-
-
-/*keyframe*/
+/****** keyframes *******/
 
 @keyframes cover-rotate {
   from {
@@ -38,8 +36,16 @@ $desktopXlarge : 1440px;
 }
 
 
+@keyframes fade-in {
+  from {opacity: 0}
+  to {opacity: 1}
+}
 
-/*Style*/
+
+
+
+
+/********* Style ***********/
 
 
 * {
@@ -52,6 +58,8 @@ html {
   font-size: 62.5%;
   font-family: 'Work Sans', sans-serif;
 
+  background-color: yellow;
+
   @media screen and (min-width: 500px){
 
   }
@@ -62,10 +70,15 @@ html, body {
   width:100%;
   margin:0 ;
   padding: 0;
+
 }
 
-audio {
+
+
+
+audio, #file-input {
   display: none;
+  z-index: 0;
 }
 
 
@@ -95,18 +108,200 @@ audio {
 
 }
 
+$t : .3s; //delai avant première animation
+
+#intro {
+  //overflow-x: scroll;
+  //position: absolute;
+  z-index: 3;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  color: $accentColor1;
+  background-color: $accentColor2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+
+  h1 {
+    font-size: 4.5rem;
+    font-weight: 300;
+    margin: 0 0 1rem 0;
+    opacity: 0;
+    animation: fade-in 1.5s $t ease-in forwards;
+
+  }
+
+  h2 {
+    opacity: 0;
+    font-size: 1.7rem;
+    font-weight: 200;
+    margin: 1rem 0 3rem 0;
+
+    animation: fade-in 1.5s $t+.5s ease-in forwards;
+//test
+  }
+
+  #sources {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    margin: 0 4rem;
+
+
+    #split1, #split2 {
+      //display: none;
+      margin: 2.5rem 0;
+      width: 0;
+      opacity: 0;
+      height: 1px;
+      //border-radius: 1px;
+      //background-color: $accentColor1;
+      border-bottom: thin solid $accentColor1;
+
+      /*background-image: linear-gradient(to right, $accentColor1 33%, rgba(255,255,255,0) 0%);
+      background-position: bottom;
+      background-size: 3px 1px;
+      background-repeat: repeat-x;*/
+
+      &:nth-child(2) {
+        animation: fade-in 1.5s $t+1.5s ease-in forwards, split-width 1.5s $t+2s ease forwards;
+      }
+
+      &:nth-child(4) {
+        animation: fade-in 1.5s $t+2s ease-in forwards, split-width 1.5s $t+2.5s ease forwards;
+      }
+//tr
+
+      @keyframes split-width {
+        from { width: 0 }
+        to {width: 85%}
+      }
+    }
+
+    div[id^="source-"] {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      margin: 0;
+      font-size: 1.3rem;
+      text-align: center;
+      cursor: pointer;
+
+      opacity: 0;
+
+
+      &:nth-child(1) {
+        animation: fade-in 1.5s $t+1s ease-in forwards;
+      }
+
+      &:nth-child(3) {
+        animation: fade-in 1.5s $t+1.5s ease-in forwards;
+      }
+
+      &:nth-child(5) {
+        animation: fade-in 1.5s $t+2s ease-in forwards;
+      }
+
+      button {
+        padding: 0;
+        margin: 0 1rem;
+        color: $accentColor1;
+        outline: none;
+        cursor: pointer;
+        border: none;
+        border-radius: 50%;
+        background-color: transparent;
+
+        font-size: 4rem;
+      }
+
+      h3 {
+        font-size: 2rem;
+        font-weight: 700;
+        margin: 0 0 1.5rem 0;
+
+      }
+
+      p {
+        font-size: 1.4rem;
+        font-weight: 400;
+        margin: 0;
+      }
+
+
+
+
+    }
+
+    #source-external {
+      text-align: center;
+
+      div {
+        position: relative;
+        width: 20rem;
+
+       /* background-image: linear-gradient(to right, $accentColor1 33%, rgba(255,255,255,0) 0%);
+        background-position: bottom;
+        background-size: 7px 1px;
+        background-repeat: repeat-x;*/
+
+        /*&::after {
+          position: absolute;
+          content: '';
+          left: 0;
+          bottom: -2px;
+          width: 100%;
+          //height: 1px;
+          //background-color: $accentColor1;
+          border-bottom: dotted thin $accentColor1t50;
+
+        }*/
+
+        input {
+          width: 100%;
+          margin: 0.8rem 0 0 0;
+          border: 0;
+          color: $accentColor1;
+          text-align: center;
+          background-color: transparent;
+          outline: none;
+        }
+
+      }
+
+      .logos {
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+  }
+
+
+}
+
 main {
   height: 100%;
-  display: flex;
+  display: none;
+  //display: flex;
   flex-direction: column;
 }
 
 
+
 #show {
+  display: flex;
+
   width: 100%;
   background-color: $accentColor1;
   flex: 1;
-  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
