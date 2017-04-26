@@ -8,9 +8,9 @@
         volume = 100; //Sur 100
 
 
-    /******************************************
+    /***********************************************
      * WEB AUDIO API SETTINGS
-     * ******************************************/
+     * *********************************************/
 
     var contexteAudio = new (window.AudioContext || window.webkitAudioContext)(),
         analyseur = contexteAudio.createAnalyser(),
@@ -70,9 +70,9 @@
 
 
 
-    /**************************************************
+    /****************************************************
      * AUDIO ANIMATION WITH WEB AUDIO API
-     * *************************************************/
+     * ***************************************************/
 
 
     /******* Animation 2 circles ********/
@@ -266,10 +266,69 @@
 
 
 
+
+
+    /*************************************************
+     * INTRO PAGE
+     * ***********************************************/
+
+
+
+    /***** Local source *****/
+
+    var localSource = document.getElementById('source-local');
+
+    localSource.addEventListener('click', function () {
+        fileButton.click();
+    });
+
+
+    /***** External sources *****/
+
+    var sourceExternal = document.getElementById('source-external');
+
+    var introInputText = document.getElementById('intro-input-text');
+
+
+    sourceExternal.addEventListener('click', function () {
+
+
+    });
+
+    /*document.getElementById('intro-input-text-submit').addEventListener('click', function () {
+
+        var introInputTextValue = introInputText.value;
+
+        getSpotifyTrack(introInputTextValue);
+
+        introInputText.blur();
+        introInputText.value = "";
+
+
+    });*/
+
+
+
+
+    /**** Animation when cover image is loaded ****/
+
+    cover.addEventListener('load', function () {
+
+        //Hide intro
+        var intro = document.getElementById('intro');
+        intro.classList.add('hide');
+
+        setTimeout(function () {
+            intro.style.display = 'none';
+        },4000)
+
+    });
+
+
+
     /************************************************
      * RECUPERATION DONNEES MUSIQUE
      * **********************************************/
-
 
 
     /***** Récupération metatags *****/
@@ -407,13 +466,6 @@
 
     //Dès que l'image charge
     cover.addEventListener("load", function () {
-
-        this.style.display = 'block';
-
-        document.getElementById('show-help').style.display = "none";
-        document.getElementById('show-container').style.display = "flex";
-
-
 
 
         /***** Récupération palette couleur avec ColorThief *****/
@@ -641,6 +693,7 @@
         }
     };
 
+
     /*** Get data music from JSON ***/
 
     var getSpotifyData = function (json) {
@@ -667,15 +720,14 @@
 
     };
 
-    /*** Text Input Submit ***/
+    /*** Get Spotify track with url or id */
 
-    document.getElementById('input-text-submit').addEventListener('click', function () {
+    var getSpotifyTrack = function (url) {
 
-        //Text from input
-        var textInput = document.getElementById('input-text').value;
+        //Convert URL to ID
+        var id = spotifyUrlToId(url);
 
-        //URL to id
-        var id = spotifyUrlToId(textInput);
+        //Todo : gérer les erreurs d'url
 
         //Get track with ID
         spotify.getTrack(id, function (err, json) {
@@ -685,15 +737,31 @@
                 console.log('Music', json);
                 getSpotifyData(json);
 
-                document.getElementById('input-text').blur();
-                document.getElementById('input-text').value = "";
+
 
                 audio.addEventListener('canplay', function () {
                     audio.play();
                 });
             }
         });
+    };
 
+
+    /*** Text Input Submit ***/
+
+    var textInput = document.getElementById('input-text');
+
+
+    document.getElementById('input-text-submit').addEventListener('click', function () {
+
+        //Text from input
+        var textInputValue = document.getElementById('input-text').value;
+
+        getSpotifyTrack(textInputValue);
+
+
+        textInput.value = "";
+        textInput.blur();
 
 
     });
@@ -772,15 +840,22 @@
             }
 
 
-        //If we are in input type text
-        } else {
+        //Input type text player
+        } else if (e.target.id = "input-text"){
 
             //Enter key : submit text of input
             if (e.keyCode === 13) {
                 document.getElementById('input-text-submit').click();
             }
-        }
 
+        //Input type text intro
+        } else if (e.target.id = "intro-input-text"){
+
+            //Enter key : submit text of input
+            if (e.keyCode === 13) {
+                document.getElementById('intro-input-text-submit').click();
+            }
+        }
 
     });
 
@@ -892,7 +967,6 @@
     });
 
 
-
     /***** Play et pause *****/
 
     var control = document.querySelector("button[class^='icon-control']");
@@ -920,7 +994,7 @@
 
     /***** Jouer sample *****/
 
-    document.getElementById('show-help').addEventListener('click', function () {
+    document.getElementById('source-sample').addEventListener('click', function () {
 
         var root = location.href;
 
