@@ -22,6 +22,9 @@
     <link type="image/x-icon" rel="shortcut icon" href="img/favicon.png">
     <script src="js/app.js"></script>
 
+
+    <link rel="stylesheet" href="font/font-awesome-4.7.0/css/font-awesome.css">
+
 </head>
 <body>
 
@@ -44,26 +47,28 @@
 
         <div id="sources">
             <div id="source-local">
-                <!--<button class="icon-folder"></button>-->
+                <button class="icon-folder"></button>
                 <h3>Musique locale</h3>
-                <p>Importez une musique stockée dans votre smartphone</p>
+                <p>Importez une musique stockée sur votre smartphone</p>
                 <!--<p>Via un drag & drop dans la fenêtre du navigateur ou bien via le bouton dédié</p>-->
             </div>
 
             <div id="split1"></div>
 
             <div id="source-external">
-                <!--<div class="logos">-->
-                    <!--<button class="icon-spotify"></button>-->
-                    <!--<button class="icon-soundcloud"></button>-->
-                <!--</div>-->
+                <div class="logos">
+                    <a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
+                    </a>
+                    <a href="https://open.spotify.com/" target="_blank" class="icon-spotify">
+                    </a>
+                </div>
                 <h3>SoundCloud / Spotify</h3>
                 <p>Copiez-collez l'URL d'une musique hébergée sur Soundcloud ou Spotify</p>
                 <div id="intro-input-container">
-                    <input id="intro-input-text" type="text" placeholder="Collez URL Spotify / Soundcloud">
+                    <input id="intro-input-text" type="text" placeholder="Collez URL Spotify / Soundcloud"><i class="icon-soundcloud-play" id="intro-input-text-submit"></i>
                 </div>
 
-                <!--<div id="intro-input-text-submit">
+               <!-- <div id="intro-input-text-submit">
                     <p>Jouer musique</p>
                 </div>-->
             </div>
@@ -72,8 +77,8 @@
 
             <div id="source-sample">
                 <!--<button class="icon-control-play"></button>-->
-                <h3>Jouer un sample</h3>
-                <p>Jouez "Litozmania" de Phoenix</p>
+                <h3>Pas d'idée ?</h3>
+                <p>Jouez "Lisztomania" de Phoenix</p>
             </div>
         </div>
     </section>

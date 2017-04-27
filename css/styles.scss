@@ -25,15 +25,6 @@ $desktopXlarge : 1440px;
 
 /****** keyframes *******/
 
-@keyframes cover-rotate {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
 
 
 @keyframes fade-in {
@@ -51,7 +42,7 @@ $desktopXlarge : 1440px;
 
 
 
-/********* Style ***********/
+/********* Styles ***********/
 
 
 * {
@@ -64,7 +55,7 @@ html {
   font-size: 62.5%;
   font-family: 'Work Sans', sans-serif;
 
-  background-color: yellow;
+  background-color: $accentColor2;
 
   @media screen and (min-width: 500px){
 
@@ -114,7 +105,8 @@ audio, #file-input {
 
 }
 
-$t : .3s; //delai avant première animation
+
+$t : 0s; //delay before first animation
 
 #intro {
   position: absolute;
@@ -125,7 +117,6 @@ $t : .3s; //delai avant première animation
   padding: 0;
   color: $accentColor1;
   background-color: $accentColor2;
-  //opacity: 1;
 
   display: flex;
   justify-content: center;
@@ -134,7 +125,7 @@ $t : .3s; //delai avant première animation
   flex-direction: column;
 
   &.hide {
-    animation: intro-hidden 1.5s .3s  ease-out forwards;
+    animation: intro-hidden .6s 0s ease-out forwards;
   }
 
   @keyframes intro-hidden {
@@ -145,7 +136,7 @@ $t : .3s; //delai avant première animation
   h1 {
     font-size: 4.5rem;
     font-weight: 300;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.6rem 0;
     opacity: 0;
     animation: fade-in 1.5s $t ease-in forwards;
 
@@ -153,9 +144,9 @@ $t : .3s; //delai avant première animation
 
   h2 {
     opacity: 0;
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     font-weight: 200;
-    margin: 1rem 0 2rem 0;
+    margin: 0 0 1.4rem 0;
 
     animation: fade-in 1.5s $t+.5s ease-in forwards;
   }
@@ -172,7 +163,7 @@ $t : .3s; //delai avant première animation
 
     #split1, #split2 {
       //display: none;
-      margin: 2.5rem 0;
+      margin: 2rem 0;
       width: 0;
       opacity: 0;
       height: 1px;
@@ -186,12 +177,12 @@ $t : .3s; //delai avant première animation
       background-repeat: repeat-x;*/
 
       &:nth-child(2) {
-        animation: fade-in 1.5s $t+1.5s ease-in forwards, split-width 1.5s $t+2s ease forwards;
+        animation: fade-in 1.5s $t+1s ease-in forwards, split-width 1.5s $t+1.5s ease forwards;
 
       }
 
       &:nth-child(4) {
-        animation: fade-in 1.5s $t+2s ease-in forwards, split-width 1.5s $t+2.5s ease forwards;
+        animation: fade-in 1.5s $t+1.5s ease-in forwards, split-width 1.5s $t+2s ease forwards;
       }
 
       @keyframes split-width {
@@ -225,12 +216,13 @@ $t : .3s; //delai avant première animation
         animation: fade-in 1.5s $t+2s ease-in forwards;
       }
 
-      button {
+      button, a {
         padding: 0;
-        margin: 0 1rem;
+        margin: 0 1rem 1rem 1rem;
         color: $accentColor1;
         outline: none;
         cursor: pointer;
+        text-decoration: none;
         border: none;
         border-radius: 50%;
         background-color: transparent;
@@ -241,17 +233,15 @@ $t : .3s; //delai avant première animation
       h3 {
         font-size: 2rem;
         font-weight: 700;
-        margin: 0 0 1.5rem 0;
+        margin: 0 0 1rem 0;
 
       }
 
       p {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
         font-weight: 400;
         margin: 0 1rem;
       }
-
-
 
 
     }
@@ -261,7 +251,13 @@ $t : .3s; //delai avant première animation
 
       #intro-input-container{
         position: relative;
-        width: 20rem;
+        width: 27rem;
+        margin: 0.8rem 0 0 0;
+        //background-color: red;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
        /* background-image: linear-gradient(to right, $accentColor1 33%, rgba(255,255,255,0) 0%);
         background-position: bottom;
@@ -282,7 +278,7 @@ $t : .3s; //delai avant première animation
 
         input {
           width: 100%;
-          margin: 0.8rem 0 0 0;
+          margin: 0 1rem 0 0;
           border: 0;
           color: $accentColor1;
           text-align: center;
@@ -290,18 +286,18 @@ $t : .3s; //delai avant première animation
           outline: none;
         }
 
+        .fa-arrow-circle-right {
+
+        }
+
+        #intro-input-text-submit {
+          font-size: 3.2rem;
+        }
+
+
       }
 
-      #intro-input-text-submit {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $accentColor2;
-        background-color: $accentColor1;
-        height: 3rem;
-        width: 15rem;
-        border-radius: 3rem;
-      }
+
 
       .logos {
         display: flex;
@@ -441,6 +437,16 @@ main#player {
         animation-play-state: paused;
         animation-iteration-count: infinite;
         animation-timing-function: linear;
+
+        @keyframes cover-rotate {
+          from {
+            transform: rotate(0deg);
+          }
+
+          to {
+            transform: rotate(360deg);
+          }
+        }
 
         @media screen and (min-width: $tabletPortrait) {
           width: 15rem;

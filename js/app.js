@@ -5,7 +5,7 @@
         cover = document.getElementById('cover'), // Illustration Musique
         cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
         sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
-        volume = 100; //Sur 100
+        volume = 75; //Sur 100
 
 
     /***********************************************
@@ -90,7 +90,7 @@
 
         var total1 = 0;
 
-        for (var i = 0; i < intervale ; i++) {
+        for (let i = 0; i < intervale ; i++) {
             total1 += tableauDonnees[i];
         }
 
@@ -291,11 +291,10 @@
 
 
     sourceExternal.addEventListener('click', function () {
-
-
+        introInputText.focus();
     });
 
-    /*document.getElementById('intro-input-text-submit').addEventListener('click', function () {
+    document.getElementById('intro-input-text-submit').addEventListener('click', function () {
 
         var introInputTextValue = introInputText.value;
 
@@ -305,7 +304,7 @@
         introInputText.value = "";
 
 
-    });*/
+    });
 
 
 
@@ -320,7 +319,7 @@
 
         setTimeout(function () {
             intro.style.display = 'none';
-        },4000)
+        },3000)
 
     });
 
@@ -461,7 +460,6 @@
     /*************************************************
      * CHANGEMENT DE COULEUR
      * ***********************************************/
-
 
 
     //Dès que l'image charge
