@@ -376,7 +376,14 @@
                     var base64 = "data:image/jpeg;base64," + window.btoa(base64String);
                     document.getElementById('cover').setAttribute('src',base64);
                 } else {
-                    document.getElementById('cover').style.display = "none";
+
+                    //Cover Color Random
+
+                    const coverColorNumber = Math.floor(Math.random() * 18) + 1;
+
+                    const root = window.location.href;
+
+                    document.getElementById('cover').setAttribute('src', root + '/img/cover/cover' + coverColorNumber+'.jpg');
                 }
 
 
@@ -513,6 +520,8 @@
             var meta = metas[j];
             meta.style.color = accentColor1;
         }
+
+        const time = document.getElementById('time').style.color = accentColor1;
 
         /***** Timeline *****/
 
@@ -737,7 +746,6 @@
             } else {
                 console.log('Music', json);
                 getSpotifyData(json);
-
 
 
                 audio.addEventListener('canplay', function () {
@@ -997,17 +1005,15 @@
 
     document.getElementById('source-sample').addEventListener('click', function () {
 
-        var root = location.href;
+        const root = window.location.href;
 
-        var music1 = root + '/audio/music.mp3';
+        const musicSample = '/audio/strobotone-kites.mp3';
 
+        const musicSamplePath = root + musicSample;
 
-        const music2 = '/audio/strobotone-kites.mp3';
-        const music2Path = root + music2;
+        getMetatags(musicSamplePath);
 
-        getMetatags(music2Path);
-
-        audio.setAttribute('src', music2);
+        audio.setAttribute('src', musicSamplePath);
 
         audio.play();
     });
