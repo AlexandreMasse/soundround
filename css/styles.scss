@@ -41,7 +41,6 @@ $desktopXlarge : 1440px;
 
 
 
-
 /********* Styles ***********/
 
 
@@ -67,16 +66,19 @@ html, body {
   width:100%;
   margin:0 ;
   padding: 0;
-
 }
-
-
 
 
 audio, #file-input {
   display: none;
   z-index: 0;
 }
+
+
+
+/******************************************
+ * Drag and Drop
+ ******************************************/
 
 
 #drop-zone {
@@ -106,6 +108,12 @@ audio, #file-input {
 }
 
 
+/*******************************************
+ * INTRO
+ *******************************************/
+
+
+
 $t : 0s; //delay before first animation
 
 #intro {
@@ -129,8 +137,13 @@ $t : 0s; //delay before first animation
   }
 
   @keyframes intro-hidden {
-    from { opacity: 1; pointer-events: none;}
-    to {opacity: 0;}
+    from {
+      opacity: 1;
+      pointer-events: none;
+    }
+    to {
+      opacity: 0;
+    }
   }
 
   h1 {
@@ -139,6 +152,12 @@ $t : 0s; //delay before first animation
     margin: 0 0 0.6rem 0;
     opacity: 0;
     animation: fade-in 1.5s $t ease-in forwards;
+
+    @media screen and (min-width: $desktop) {
+      margin: 0 0 3.2rem 0;
+
+      font-size: 5.8rem;
+    }
 
   }
 
@@ -149,167 +168,333 @@ $t : 0s; //delay before first animation
     margin: 0 0 1.4rem 0;
 
     animation: fade-in 1.5s $t+.5s ease-in forwards;
+
+    @media screen and (min-width: $desktop) {
+      font-size: 1.9rem;
+    }
+
   }
 
-  #sources {
+}
+
+
+/*********** SOURCES *************/
+
+
+#sources {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin: 0;
+
+  width: 80%;
+
+  max-width: 450px;
+
+
+  @media screen and (min-width: $desktop) {
+    flex-direction: row;
+    height: 225px;
+    justify-content: center;
+
+    margin: 2rem 0 0 0;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+
+  div[id^="source-"] {
     display: flex;
     flex-direction: column;
     align-items: center;
 
     margin: 0;
+    font-size: 1.3rem;
+    text-align: center;
+    cursor: pointer;
 
-    width: 80%;
+    height: 100%;
+    opacity: 0;
 
-
-    #split1, #split2 {
-      //display: none;
-      margin: 2rem 0;
-      width: 0;
-      opacity: 0;
-      height: 1px;
-      //border-radius: 1px;
-      //background-color: $accentColor1;
-      border-bottom: thin solid $accentColor1;
-
-      /*background-image: linear-gradient(to right, $accentColor1 33%, rgba(255,255,255,0) 0%);
-      background-position: bottom;
-      background-size: 3px 1px;
-      background-repeat: repeat-x;*/
-
-      &:nth-child(2) {
-        animation: fade-in 1.5s $t+1s ease-in forwards, split-width 1.5s $t+1.5s ease forwards;
-
-      }
-
-      &:nth-child(4) {
-        animation: fade-in 1.5s $t+1.5s ease-in forwards, split-width 1.5s $t+2s ease forwards;
-      }
-
-      @keyframes split-width {
-        from { width: 0 }
-        to {width: 100%}
-      }
+    @media screen and (min-width: $desktop) {
+      align-self: baseline;
+      margin: 2.2rem 0 0 0;
     }
 
-    div[id^="source-"] {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      margin: 0;
-      font-size: 1.3rem;
-      text-align: center;
+    button, a {
+      padding: 0;
+      margin: 0 1rem 1rem 1rem;
+      color: $accentColor1;
+      outline: none;
       cursor: pointer;
+      text-decoration: none;
+      border: none;
+      border-radius: 50%;
+      background-color: transparent;
 
-      opacity: 0;
+      font-size: 3.5rem;
 
-
-      &:nth-child(1) {
-        animation: fade-in 1.5s $t+1s ease-in forwards;
-      }
-
-      &:nth-child(3) {
-        animation: fade-in 1.5s $t+1.5s ease-in forwards;
-      }
-
-      &:nth-child(5) {
-        animation: fade-in 1.5s $t+2s ease-in forwards;
-      }
-
-      button, a {
-        padding: 0;
-        margin: 0 1rem 1rem 1rem;
-        color: $accentColor1;
-        outline: none;
-        cursor: pointer;
-        text-decoration: none;
-        border: none;
-        border-radius: 50%;
-        background-color: transparent;
-
+      @media screen and (min-width: $desktop) {
+        margin: 0 1.5rem 2rem 1.5rem;
         font-size: 4rem;
-      }
 
-      h3 {
+      }
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0 0 1rem 0;
+
+      @media screen and (min-width: $desktop) {
         font-size: 2rem;
-        font-weight: 700;
-        margin: 0 0 1rem 0;
-
       }
-
-      p {
-        font-size: 1.2rem;
-        font-weight: 400;
-        margin: 0 1rem;
-      }
-
 
     }
 
-    #source-external {
-      text-align: center;
+    p {
+      font-size: 1.2rem;
+      font-weight: 400;
+      margin: 0 1rem;
 
-      #intro-input-container{
-        position: relative;
-        width: 27rem;
-        margin: 0.8rem 0 0 0;
-        //background-color: red;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-       /* background-image: linear-gradient(to right, $accentColor1 33%, rgba(255,255,255,0) 0%);
-        background-position: bottom;
-        background-size: 7px 1px;
-        background-repeat: repeat-x;*/
-
-        /*&::after {
-          position: absolute;
-          content: '';
-          left: 0;
-          bottom: -2px;
-          width: 100%;
-          //height: 1px;
-          //background-color: $accentColor1;
-          border-bottom: dotted thin $accentColor1t50;
-
-        }*/
-
-        input {
-          width: 100%;
-          margin: 0 1rem 0 0;
-          border: 0;
-          color: $accentColor1;
-          text-align: center;
-          background-color: transparent;
-          outline: none;
-        }
-
-        .fa-arrow-circle-right {
-
-        }
-
-        #intro-input-text-submit {
-          font-size: 3.2rem;
-        }
-
-
+      @media screen and (min-width: $desktop) {
+        margin: 0.5rem 1rem 0 1rem;
+        font-size: 1.4rem;
       }
 
+    }
+
+  }
 
 
-      .logos {
-        display: flex;
-        justify-content: center;
+  /**** Local sources ****/
+
+
+  #source-local {
+
+    animation: fade-in 1.5s $t+1s ease-in forwards;
+
+    .desktop {
+      display: none;
+    }
+
+
+    @media screen and (min-width: $desktop){
+      width: 250px;
+
+      .desktop {
+        display: block;
+      }
+      .mobile {
+        display: none;
       }
     }
 
   }
 
 
+  /**** External sources ****/
+
+
+  #source-external {
+
+    animation: fade-in 1.5s $t+1.5s ease-in forwards;
+
+    @media screen and (min-width: $desktop) {
+      width: 300px;
+
+    }
+
+    #intro-input-container{
+      text-align: center;
+      position: relative;
+      width: 27rem;
+      margin: 0.8rem 0 0 0;
+      //background-color: red;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      /* background-image: linear-gradient(to right, $accentColor1 33%, rgba(255,255,255,0) 0%);
+       background-position: bottom;
+       background-size: 7px 1px;
+       background-repeat: repeat-x;*/
+
+      /*&::after {
+        position: absolute;
+        content: '';
+        left: 0;
+        bottom: -2px;
+        width: 100%;
+        //height: 1px;
+        //background-color: $accentColor1;
+        border-bottom: dotted thin $accentColor1t50;
+
+      }*/
+
+      @media screen and (min-width: $desktop) {
+        margin: 2rem 0 0 0;
+      }
+
+      input {
+        width: 100%;
+        margin: 0 1rem 0 0;
+        border: 0;
+        color: $accentColor1;
+        text-align: center;
+        background-color: transparent;
+        outline: none;
+      }
+
+      .fa-arrow-circle-right {
+
+      }
+
+      #intro-input-text-submit {
+        font-size: 3.2rem;
+      }
+
+    }
+
+
+    .logos {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+
+
+  /**** Sample source *****/
+
+
+  #source-sample {
+
+    animation: fade-in 1.5s $t+2s ease-in forwards;
+
+    @media screen and (min-width: $desktop) {
+      width: 250px;
+    }
+
+    .icon-control-play {
+      display: none;
+
+      @media screen and (min-width: $desktop){
+        display: block;
+      }
+    }
+  }
+
+
+  /**** Separators ****/
+
+
+  #split1, #split2 {
+    //display: none;
+    margin: 1.7rem 0;
+    width: 0;
+    opacity: 0;
+    height: 1px;
+    border-radius: 1px;
+    background-color: $accentColor1;
+    //border-bottom: thin solid $accentColor1;
+
+    /*background-image: linear-gradient(to right, $accentColor1 33%, rgba(255,255,255,0) 0%);
+    background-position: bottom;
+    background-size: 3px 1px;
+    background-repeat: repeat-x;*/
+
+    @media screen and (min-width: $desktop) {
+      height: 0;
+      width: 1px;
+      margin: 0 4rem ;
+    }
+
+
+    &:nth-child(2) {
+      animation: fade-in 1.5s $t+1s ease-in forwards, split-width 1.5s $t+1.5s ease forwards;
+
+      @media screen and (min-width: $desktop) {
+        animation: fade-in 1.5s $t+1s ease-in forwards, split-height 1.5s $t+1.5s ease forwards;
+      }
+
+    }
+
+    &:nth-child(4) {
+      animation: fade-in 1.5s $t+1.5s ease-in forwards, split-width 1.5s $t+2s ease forwards;
+
+      @media screen and (min-width: $desktop) {
+        animation: fade-in 1.5s $t+1.5s ease-in forwards, split-height 1.5s $t+2s ease forwards;
+      }
+
+    }
+
+    @keyframes split-width {
+      from { width: 0 }
+      to {width: 100%}
+    }
+
+    @keyframes split-height {
+      from {height: 0 }
+      to {height: 100%}
+    }
+  }
 }
 
+
+/*********** CREDITS ****************/
+
+
+#credit {
+
+  opacity: 0;
+  animation: fade-in 1.5s $t+2.5s ease-in forwards;
+
+  font-size: 1.4rem;
+  font-weight: 300;
+
+  margin: 7rem 0 0 0;
+
+  &.desktop {
+    display: none;
+
+    @media screen and (min-width: $desktop) {
+      display: block;
+    }
+
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+  }
+
+  span {
+    margin: 0 3px;
+  }
+
+  .icon-chevron {
+    font-size: 1.8rem;
+    position: relative;
+    top: 4px;
+  }
+
+  .icon-heart {
+    font-size: 1.5rem;
+    position: relative;
+    top: 2px;
+  }
+}
+
+
+
+
+/****************************************
+ * PLAYER
+ ****************************************/
 
 
 main#player {
@@ -319,6 +504,8 @@ main#player {
   flex-direction: column;
 }
 
+
+/************ SHOW ***************/
 
 
 #show {
@@ -364,14 +551,11 @@ main#player {
       justify-content: center;
       align-items:center;
       border-radius: 50%;
-      background-color: blue;
-      border: red 20px;
       //transition: all .1s;
       margin-top: 4rem;
 
       position: relative;
       text-align: center;
-
 
 
       @media screen and (min-width: $tabletPortrait) {
@@ -423,6 +607,7 @@ main#player {
       }
 
 
+      /**** Album cover ****/
 
       #cover {
         z-index: 3;
@@ -464,12 +649,11 @@ main#player {
           height: 17rem;
 
         }
-
       }
     }
 
 
-
+    /**** Infos meta ****/
 
     #meta {
       z-index: 10;
@@ -551,6 +735,10 @@ main#player {
 }
 
 
+
+/********** TIMELINE ************/
+
+
 #timeline {
   z-index: 5;
 
@@ -563,7 +751,6 @@ main#player {
     height: 25px;
   }
 
-
   #timeline-progress {
     height:100%;
     background-color: $accentColor2;
@@ -571,6 +758,12 @@ main#player {
     transition: all 1.2s ease;
   }
 }
+
+
+
+/************ CONTROL PANEL **************/
+
+
 
 #panel {
   z-index: 5;
@@ -635,7 +828,7 @@ main#player {
     }
 
 
-    /* Toggle Fullscreen */
+    /**** Toggle Fullscreen ****/
 
     button[class^='icon-window'] {
       display: none;
@@ -646,7 +839,7 @@ main#player {
 
     }
 
-    /* Play / pause */
+    /**** Play / pause ****/
 
     button[class^='icon-control-'] {
       font-size: 5.2rem;
@@ -656,7 +849,8 @@ main#player {
       }
     }
 
-    /* Volume slider */
+
+    /**** Volume slider ****/
 
     input[type="range"] {
 
@@ -709,7 +903,7 @@ main#player {
         display: none;
       }
 
-      /* thumb */
+      /*** thumb ***/
 
 
       &::-webkit-slider-thumb {
@@ -739,13 +933,17 @@ main#player {
       }
     }
 
-    /* Microphone */
+
+    /**** Microphone ****/
 
     #microphone-record {
       display: none;
     }
 
   }
+
+
+  /********* Soundcloud and Spotify *********/
 
   #soundcloud-spotify {
     margin-top: 5px;
@@ -758,13 +956,13 @@ main#player {
       display: none;
     }
 
-    /* Bouton soumisssion soundcloud */
+    /***** Submit button *****/
 
     #input-text-submit {
       font-size: 3rem;
     }
 
-    /* Input URL Soundcloud */
+    /**** Input URL Soundcloud Spotify ****/
 
     div {
       position: relative;
@@ -785,8 +983,6 @@ main#player {
         width: 30rem;
       }
 
-
-
       &::after {
         position: absolute;
         left:0;
@@ -800,7 +996,6 @@ main#player {
         @media screen and (min-width: $tabletPortrait){
           bottom: -6px;
         }
-
       }
 
       input {
@@ -826,7 +1021,6 @@ main#player {
           color: $accentColor1;
           opacity: 0.6;
         }
-
       }
     }
   }

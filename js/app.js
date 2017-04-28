@@ -458,11 +458,11 @@
 
 
     /*************************************************
-     * CHANGEMENT DE COULEUR
+     * COLORS CHANGE
      * ***********************************************/
 
 
-    //Dès que l'image charge
+    //When cover load
     cover.addEventListener("load", function () {
 
 
@@ -551,6 +551,9 @@
 
         style.innerHTML += '#soundcloud-spotify input:-ms-input-placeholder {color: ' + accentColor2 + '!important;}';
 
+
+
+        /* Todo: Faire un favicon plus grand */
 
 
         /***** Dessin du nouveau favicon *****/
@@ -998,9 +1001,13 @@
 
         var music1 = root + '/audio/music.mp3';
 
-        getMetatags(music1);
 
-        audio.setAttribute('src', 'audio/music.mp3');
+        const music2 = '/audio/strobotone-kites.mp3';
+        const music2Path = root + music2;
+
+        getMetatags(music2Path);
+
+        audio.setAttribute('src', music2);
 
         audio.play();
     });
