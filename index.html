@@ -26,18 +26,18 @@
 </head>
 <body>
 
-    <!-- Hidden elements -->
+    <!-- HIDDEN ELEMENTS-->
 
     <audio src="#" autoplay="autoplay" controls="controls" id="audio"></audio>
     <input type="file" id="file-input">
 
-    <!-- Drag & drop zone-->
+    <!-- DRAG & DROP ZONE-->
 
     <div id="drop-zone" class="hidden">
         <p>Glissez-déposez votre musique</p>
     </div>
 
-    <!-- Intro -->
+    <!-- INTRO -->
 
     <section id="intro">
         <h1>SoundRound</h1>
@@ -55,15 +55,14 @@
 
             <div id="source-external">
                 <div class="logos">
-                    <a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
-                    </a>
-                    <a href="https://open.spotify.com/" target="_blank" class="icon-spotify">
-                    </a>
+                    <!--<a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
+                    </a>-->
+                    <a href="https://open.spotify.com/" target="_blank" class="icon-spotify"></a>
                 </div>
-                <h3>SoundCloud / Spotify</h3>
-                <p>Copiez-collez l'URL d'une musique hébergée sur Soundcloud ou Spotify</p>
+                <h3>Spotify</h3>
+                <p>Copiez-collez l'URL ou l'ID d'une musique hébergée sur Spotify</p>
                 <div id="intro-input-container">
-                    <input id="intro-input-text" type="text" placeholder="Collez URL Spotify / Soundcloud"><i class="icon-url-play" id="intro-input-text-submit"></i>
+                    <input id="intro-input-text" type="text" placeholder="Collez URL / ID Spotify"><i class="icon-url-play" id="intro-input-text-submit"></i>
                 </div>
 
                <!-- <div id="intro-input-text-submit">
@@ -81,11 +80,39 @@
         </div>
 
         <p id="credit" class="desktop">
-                <span class="icon-chevron"></span> avec <span class="icon-heart"></span> par <a href="http://alexandremasse.fr">Alexandre Massé</a>
+            <a href="https://github.com/AlexandreMasse/soundround" class="icon-chevron"></a> avec <span class="icon-heart"></span> par <a href="http://alexandremasse.fr">Alexandre Massé</a>
         </p>
     </section>
 
-    <!-- PLayer -->
+
+    <!-- HELP -->
+
+    <section id="help-about">
+        <div id="help" class="mobile">
+            <h1>Aide</h1>
+
+            <button class="icon-folder"></button>
+            <p class="mobile">Importez une musique stockée sur votre smartphone en appuyant sur ce boutton</p>
+            <p class="desktop">Vous pouvez importez une musique stockée sur votre ordinateur via le boutton ou via un <strong>drag & drop</strong> (glisser-déposer) sur la page</p>
+
+            <a href="https://open.spotify.com/" target="_blank" class="icon-spotify"></a>
+
+            <p>Jouez un extrait de 30 secondes d'une musique Spotify. Pour cela <a
+                    href="https://support.spotify.com/mc/using_spotify/share_music/sharing-music/" target="_blank">récupérez le lien d'une musique</a> et collez le dans le champ prévu à cet effet</p>
+        </div>
+
+        <div id="about">
+            <h1>A propos</h1>
+            <p>SoundRound est une expérience audio interactive pensée et codée avec amour par Alexandre Massé</p>
+            <p>Le code du projet est disponible sur <a href="https://github.com/AlexandreMasse/soundround" target="_blank">GitHub</a></p>
+            <p>"Kites" de Strobotone est une musique publiée sous licences <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.fr" target="_blank">Creative Commons</a></p>
+            
+        </div>
+
+        <div id="help-about-close">Fermer</div>
+    </section>
+
+    <!-- PLAYER -->
 
     <main id="player">
 
@@ -146,7 +173,7 @@
         <section id="panel">
             <div id="control">
                 <button class="icon-window-expand"></button>
-                <button class="icon-help"></button>
+                <button class="icon-help" id="help-about-open"></button>
                 <button class="icon-volume-on"></button>
                 <input id="volume-slider" type="range" min="0" max="100" step="1">
                 <button class="icon-control-play"></button>
@@ -159,7 +186,7 @@
                 <a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
                 </a>
                 <div>
-                    <input id="input-text" type="text" placeholder="Spotify URL">
+                    <input id="input-text" type="text" placeholder="Spotify URL / ID">
                 </div>
 
                 <button class="icon-url-play" id="input-text-submit"></button>

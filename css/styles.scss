@@ -117,6 +117,14 @@ audio, #file-input {
 $t : 0s; //delay before first animation
 
 #intro {
+
+  //display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+
   position: absolute;
   z-index: 20;
   width: 100%;
@@ -126,11 +134,7 @@ $t : 0s; //delay before first animation
   color: $accentColor1;
   background-color: $accentColor2;
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  flex-direction: column;
 
   &.hide {
     animation: intro-hidden .6s 0s ease-out forwards;
@@ -143,6 +147,7 @@ $t : 0s; //delay before first animation
     }
     to {
       opacity: 0;
+      pointer-events: none;
     }
   }
 
@@ -472,22 +477,184 @@ $t : 0s; //delay before first animation
     font-weight: 500;
   }
 
-  span {
-    margin: 0 3px;
-  }
-
   .icon-chevron {
     font-size: 1.8rem;
     position: relative;
     top: 4px;
+    margin: 0 3px;
   }
 
   .icon-heart {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     position: relative;
     top: 2px;
+    margin: 0 3px;
   }
 }
+
+
+
+
+/****************************************
+ * HELP
+ ****************************************/
+
+
+#help-about {
+
+  display: none;
+  opacity: 0;
+  pointer-events: none;
+
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
+
+  position: absolute;
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  color: $accentColor1;
+  background-color: $accentColor2;
+
+  h1 {
+    font-size: 2.7rem;
+    margin: 1rem 0;
+    font-weight: 800;
+
+  }
+
+
+  p {
+    font-size: 1.3rem;
+    line-height: 135%;
+    margin: 0.8rem 0;
+
+    a {
+      position: relative;
+      color: inherit;
+      font-weight: 600;
+      text-decoration: none;
+
+      &::after {
+        position: absolute;
+        content: '';
+        background-color: $accentColor1;
+        height: 1px;
+        left: 0;
+        bottom:-1px;
+        width: 100%;
+      }
+    }
+  }
+
+
+  &.show {
+    display: flex;
+
+    animation: help-about-show .7s forwards;
+
+    @keyframes help-about-show {
+      0% {
+        opacity: 0;
+        z-index: 15;
+      }
+      99% {
+        opacity: 0.97;
+      }
+      100% {
+        opacity: 0.97;
+        z-index: 15;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &.hidden {
+    display: flex;
+
+    animation: help-about-hide .7s forwards;
+
+    @keyframes help-about-hide {
+      0% {
+        opacity: 0.97;
+        pointer-events: none;
+        z-index: 15;
+      }
+      99% {
+        opacity: 0;
+        z-index: 15;
+      }
+      100% {
+        pointer-events: none;
+        opacity: 0;
+        z-index: -1;
+      }
+    }
+
+  }
+
+}
+
+#help, #about {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  width: 90%;
+
+
+}
+
+
+#help {
+
+  .icon-folder, .icon-spotify {
+    padding: 0;
+    margin: 0.5rem 0 0 0;
+    color: $accentColor1;
+    outline: none;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
+
+    font-size: 3.4rem;
+  }
+
+  .desktop {
+    display: none;
+    @media screen and (min-width: $desktop) {
+      display: block;
+    }
+  }
+
+  .mobile {
+    @media screen and (min-width: $desktop) {
+      display: none;
+    }
+  }
+}
+
+
+#help-about-close {
+  background-color: $accentColor1;
+  color: $accentColor2;
+  text-align: center;
+  font-size: 1.5rem;
+  margin: 1.2rem 0 0 0;
+  padding: 1.2rem 0;
+  border-radius: 100px;
+  width: 13rem;
+
+  cursor: pointer;
+
+}
+
 
 
 
@@ -725,11 +892,16 @@ main#player {
 
     #time {
       font-size: 1.4rem;
-      font-weight: 500;
+      font-weight: 300;
       z-index: 10;
       position: absolute;
       bottom: 0.7rem;
       right: 2rem;
+
+      @media screen and (min-width: $desktop){
+        right: 5rem;
+        font-size: 1.6rem;
+      }
 
     }
 
@@ -835,13 +1007,33 @@ main#player {
     /**** Toggle Fullscreen ****/
 
     button[class^='icon-window'] {
-      display: none;
+
 
       @media screen and (min-width: $desktop) {
         display: block;
       }
 
     }
+
+    /***** Help / About *****/
+
+    .icon-help {
+
+    }
+
+
+
+    /**** Volume ****/
+
+    button[class^="icon-volume-"] {
+      order: 1;
+      @media screen and(min-width: $tabletLandscape) {
+        order: 0;
+      }
+    }
+
+
+
 
     /**** Play / pause ****/
 

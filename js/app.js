@@ -5,7 +5,7 @@
         cover = document.getElementById('cover'), // Illustration Musique
         cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
         sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
-        volume = 75; //Sur 100
+        volume = 50; //Sur 100
 
 
     /***********************************************
@@ -319,7 +319,7 @@
 
         setTimeout(function () {
             intro.style.display = 'none';
-        },3000)
+        },2000)
 
     });
 
@@ -441,11 +441,12 @@
     };
 
 
+
     /**** Media Session API for Chrome mobile 57+ ****/
 
 
-    //When audio ready
-    audio.addEventListener('canplay', function () {
+    //When image load
+    cover.addEventListener('load', function () {
 
         if ('mediaSession' in navigator) {
 
@@ -475,11 +476,11 @@
 
         /***** Récupération palette couleur avec ColorThief *****/
 
-        var colorThief = new ColorThief();
-        var colors = colorThief.getPalette(cover, 2);
+        const colorThief = new ColorThief();
+        const colors = colorThief.getPalette(cover, 2);
 
-        var accentColor1 = 'rgb(' + colors[0].join(',') + ')';
-        var accentColor2 = 'rgb(' + colors[1].join(',') + ')';
+        const accentColor1 = 'rgb(' + colors[0].join(',') + ')';
+        const accentColor2 = 'rgb(' + colors[1].join(',') + ')';
 
 
 
@@ -496,12 +497,31 @@
         document.getElementById('panel').style.backgroundColor = accentColor1;
         document.getElementById('panel').style.color = accentColor2;
 
+        /*** Help / About ***/
+
+
+        const helpAbout = document.getElementById('help-about');
+        const helpAboutClose = document.getElementById('help-about-close');
+        const helpAboutIcones = document.querySelectorAll("#help-about [class^='icon-']");
+
+        helpAbout.style.color = accentColor1;
+        helpAbout.style.backgroundColor = accentColor2;
+
+        helpAboutClose.style.color = accentColor2;
+        helpAboutClose.style.backgroundColor = accentColor1;
+
+
+        for (let i = 0; i < helpAboutIcones.length; i++) {
+            const icone = helpAboutIcones[i];
+            icone.style.color = accentColor1
+        }
+
 
         /*** Cercles animés ***/
 
         //Cercles
-        for (var i = 0; i < cercles.length; i++) {
-            var cercle = cercles[i];
+        for (let i = 0; i < cercles.length; i++) {
+            const cercle = cercles[i];
 
             // cercle.style.backgroundColor = accentColor1;
             cercle.style.borderColor = accentColor1;
@@ -515,9 +535,9 @@
 
         /*** Metas ***/
 
-        var metas = document.querySelectorAll('#meta p');
-        for (var j = 0; j < metas.length; j++) {
-            var meta = metas[j];
+        const metas = document.querySelectorAll('#meta p');
+        for (let j = 0; j < metas.length; j++) {
+            const meta = metas[j];
             meta.style.color = accentColor1;
         }
 
@@ -525,8 +545,8 @@
 
         /***** Timeline *****/
 
-        var timeline = document.getElementById('timeline');
-        var timelineProgress = document.getElementById('timeline-progress');
+        const timeline = document.getElementById('timeline');
+        const timelineProgress = document.getElementById('timeline-progress');
 
         timeline.style.backgroundColor = accentColor2;
         timelineProgress.style.backgroundColor = accentColor1;
@@ -540,12 +560,15 @@
 
         /*** Ajout style perso dans header ****/
 
-        var style = document.createElement("style");
+        const style = document.createElement("style");
 
         document.head.appendChild(style);
 
+        //Help About
+        style.innerHTML = '#help-about p a::after {background-color: ' + accentColor1+ '!important;}';
+
         //Volume slider
-        style.innerHTML = 'input[type=\'range\']::-webkit-slider-thumb{ background-color: ' + accentColor2 + '!important; }';
+        style.innerHTML += 'input[type=\'range\']::-webkit-slider-thumb{ background-color: ' + accentColor2 + '!important; }';
 
         style.innerHTML += 'input[type=\'range\']::-moz-range-thumb{ background-color: ' + accentColor2 + '!important; }';
 
@@ -687,6 +710,7 @@
                 //Return the end of the url (the id)
                 return url.split('spotify:track:')[1];
             } else {
+
                 throw new TypeError('The URI does not belong to a track.');
             }
             //If 'spotify.com/' exist in url
@@ -710,25 +734,31 @@
 
         //30s of preview
         var url = json.preview_url;
+
         if (url === null ) {
             console.log('pas de prewiew pour cette musique');
+
+            return false;
+
         } else {
             audio.setAttribute('src', url);
+
+            //Song name
+            document.getElementById('title').innerText = json.name;
+
+            //Artist
+            document.getElementById('artist').innerText = json.artists[0].name;
+
+            //Album name
+            document.getElementById('album').innerText = json.album.name;
+
+            //Album cover image
+            document.getElementById('cover').setAttribute('src', json.album.images[0].url);
         }
 
-        //Song name
-        document.getElementById('title').innerText = json.name;
-
-        //Artist
-        document.getElementById('artist').innerText = json.artists[0].name;
-
-        //Album name
-        document.getElementById('album').innerText = json.album.name;
-
-        //Album cover image
-        document.getElementById('cover').setAttribute('src', json.album.images[0].url);
 
     };
+
 
     /*** Get Spotify track with url or id */
 
@@ -746,7 +776,6 @@
             } else {
                 console.log('Music', json);
                 getSpotifyData(json);
-
 
                 audio.addEventListener('canplay', function () {
                     audio.play();
@@ -774,7 +803,6 @@
 
 
     });
-
 
 
 
@@ -920,6 +948,32 @@
     });
 
 
+    /***** Help / About *****/
+
+    const helpAbout = document.getElementById('help-about');
+    const helpAboutOpen = document.getElementById('help-about-open');
+    const helpAboutClose = document.getElementById('help-about-close');
+
+
+    //Open
+
+    helpAboutOpen.addEventListener('click', function () {
+
+        helpAbout.classList.remove('hidden');
+        helpAbout.classList.add('show');
+
+    });
+
+    //Close
+
+    helpAboutClose.addEventListener('click', function () {
+
+        helpAbout.classList.remove('show');
+        helpAbout.classList.add('hidden');
+
+    });
+
+
 
     /***** Volume *****/
 
@@ -978,7 +1032,7 @@
 
     /***** Play et pause *****/
 
-    var control = document.querySelector("button[class^='icon-control']");
+    const control = document.querySelector("button[class^='icon-control']");
 
     control.addEventListener('click', function () {
 
