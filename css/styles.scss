@@ -524,6 +524,12 @@ $t : 0s; //delay before first animation
     margin: 1rem 0;
     font-weight: 800;
 
+    @media screen and (min-width: $desktop) {
+      font-size: 3.3rem;
+
+      margin: 0 0 2rem 0;
+    }
+
   }
 
 
@@ -531,6 +537,11 @@ $t : 0s; //delay before first animation
     font-size: 1.3rem;
     line-height: 135%;
     margin: 0.8rem 0;
+
+    @media screen and (min-width: $desktop){
+      font-size: 1.5rem;
+      line-height: 140%;
+    }
 
     a {
       position: relative;
@@ -543,9 +554,14 @@ $t : 0s; //delay before first animation
         content: '';
         background-color: $accentColor1;
         height: 1px;
-        left: 0;
+        left: .5px;
         bottom:-1px;
         width: 100%;
+
+        @media screen and (min-width: $desktop){
+          bottom: -3px;
+        }
+
       }
     }
   }
@@ -598,7 +614,10 @@ $t : 0s; //delay before first animation
 
 }
 
-#help, #about {
+
+
+#help {
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -606,11 +625,29 @@ $t : 0s; //delay before first animation
 
   width: 90%;
 
+  max-width: 1150px;
 
-}
+  @media screen and (min-width: $desktop) {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    margin-bottom: 1.8rem;
+  }
 
 
-#help {
+  #help-folder, #help-spotify {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    @media screen and (min-width: $desktop) {
+      width: 45%;
+    }
+  }
+
+
 
   .icon-folder, .icon-spotify {
     padding: 0;
@@ -624,6 +661,18 @@ $t : 0s; //delay before first animation
     background-color: transparent;
 
     font-size: 3.4rem;
+
+    @media screen and (min-width: $desktop) {
+      font-size: 4rem;
+      margin: 0 0 0.8rem 0;
+    }
+  }
+
+
+  .mobile {
+    @media screen and (min-width: $desktop) {
+      display: none;
+    }
   }
 
   .desktop {
@@ -632,14 +681,19 @@ $t : 0s; //delay before first animation
       display: block;
     }
   }
-
-  .mobile {
-    @media screen and (min-width: $desktop) {
-      display: none;
-    }
-  }
 }
 
+
+
+#about {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  width: 90%;
+}
 
 #help-about-close {
   background-color: $accentColor1;
@@ -652,6 +706,11 @@ $t : 0s; //delay before first animation
   width: 13rem;
 
   cursor: pointer;
+
+
+  @media screen and (min-width: $desktop) {
+    margin: 3rem 0 0 0;
+  }
 
 }
 

@@ -20,7 +20,6 @@
     <link rel="stylesheet" href="css/styles.css">
     <!--Favicon-->
     <link type="image/x-icon" rel="shortcut icon" href="img/faviconHD.png">
-    <script src="js/app.js"></script>
 
 
 </head>
@@ -28,81 +27,114 @@
 
     <!-- HIDDEN ELEMENTS-->
 
+
     <audio src="#" autoplay="autoplay" controls="controls" id="audio"></audio>
     <input type="file" id="file-input">
 
+
     <!-- DRAG & DROP ZONE-->
+
 
     <div id="drop-zone" class="hidden">
         <p>Glissez-déposez votre musique</p>
     </div>
 
+
     <!-- INTRO -->
 
+
     <section id="intro">
+
         <h1>SoundRound</h1>
+
         <h2>Choisissez une source audio :</h2>
 
         <div id="sources">
+
             <div id="source-local">
+
                 <button class="icon-folder"></button>
+
                 <h3>Musique locale</h3>
+
                 <p class="mobile">Importez une musique stockée sur votre smartphone</p>
                 <p class="desktop">Importez une musique stockée sur votre ordinateur via le boutton ou via un <strong>drag & drop</strong></p>
+
             </div>
 
             <div id="split1"></div>
 
             <div id="source-external">
+
                 <div class="logos">
                     <!--<a href="https://soundcloud.com/" target="_blank" class="icon-soundcloud">
                     </a>-->
                     <a href="https://open.spotify.com/" target="_blank" class="icon-spotify"></a>
                 </div>
+
                 <h3>Spotify</h3>
+
                 <p>Copiez-collez l'URL ou l'ID d'une musique hébergée sur Spotify</p>
+
                 <div id="intro-input-container">
                     <input id="intro-input-text" type="text" placeholder="Collez URL / ID Spotify"><i class="icon-url-play" id="intro-input-text-submit"></i>
                 </div>
 
-               <!-- <div id="intro-input-text-submit">
-                    <p>Jouer musique</p>
-                </div>-->
             </div>
 
             <div id="split2"></div>
 
             <div id="source-sample">
+
                 <button class="icon-intro-play"></button>
+
                 <h3>Pas d'idée ?</h3>
+
                 <p>Jouez "Kites" de Strobotone</p>
+
             </div>
         </div>
 
         <p id="credit" class="desktop">
-            <a href="https://github.com/AlexandreMasse/soundround" class="icon-chevron"></a> avec <span class="icon-heart"></span> par <a href="http://alexandremasse.fr">Alexandre Massé</a>
+            <a href="https://github.com/AlexandreMasse/soundround" target="_blank" class="icon-chevron"></a> avec <span class="icon-heart"></span> par <a href="http://alexandremasse.fr" target="_blank">Alexandre Massé</a>
         </p>
+
     </section>
 
 
-    <!-- HELP -->
+    <!-- HELP / ABOUT -->
+
 
     <section id="help-about">
+
+        <h1>Aide</h1>
+
         <div id="help" class="mobile">
-            <h1>Aide</h1>
 
-            <button class="icon-folder"></button>
-            <p class="mobile">Importez une musique stockée sur votre smartphone en appuyant sur ce boutton</p>
-            <p class="desktop">Vous pouvez importez une musique stockée sur votre ordinateur via le boutton ou via un <strong>drag & drop</strong> (glisser-déposer) sur la page</p>
+            <div id="help-folder">
 
-            <a href="https://open.spotify.com/" target="_blank" class="icon-spotify"></a>
+                <button class="icon-folder"></button>
 
-            <p>Jouez un extrait de 30 secondes d'une musique Spotify. Pour cela <a
-                    href="https://support.spotify.com/mc/using_spotify/share_music/sharing-music/" target="_blank">récupérez le lien d'une musique</a> et collez le dans le champ prévu à cet effet</p>
+                <p class="mobile">Importez une musique stockée sur votre smartphone en appuyant sur ce boutton</p>
+                <p class="desktop">Vous pouvez importer une musique stockée sur votre ordinateur avec le boutton ou avec un <strong>drag & drop</strong> (glisser-déposer) sur la page</p>
+
+            </div>
+
+            <div id="help-spotify">
+
+                <a href="https://open.spotify.com/" target="_blank" class="icon-spotify"></a>
+
+                <p>Jouez un extrait de 30 secondes d'une musique Spotify. Pour cela <a
+                        href="https://support.spotify.com/mc/using_spotify/share_music/sharing-music/" target="_blank">récupérez le lien d'une musique</a> et collez le dans le champ prévu à cet effet</p>
+            </div>
+
+
         </div>
 
+        <h1>À propos</h1>
+
         <div id="about">
-            <h1>A propos</h1>
+
             <p>SoundRound est une expérience audio interactive pensée et codée avec amour par Alexandre Massé</p>
             <p>Le code du projet est disponible sur <a href="https://github.com/AlexandreMasse/soundround" target="_blank">GitHub</a></p>
             <p>"Kites" de Strobotone est une musique publiée sous licences <a href="https://creativecommons.org/licenses/by-nc-nd/3.0/deed.fr" target="_blank">Creative Commons</a></p>
@@ -112,7 +144,9 @@
         <div id="help-about-close">Fermer</div>
     </section>
 
+
     <!-- PLAYER -->
+
 
     <main id="player">
 
@@ -163,12 +197,14 @@
 
         <!-- Timeline -->
 
+
         <section id="timeline">
             <div id="timeline-progress"></div>
         </section>
 
 
         <!-- Control panel -->
+
 
         <section id="panel">
             <div id="control">

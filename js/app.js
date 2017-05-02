@@ -1,7 +1,7 @@
 'use strict';
 (function() {
 
-    var audio = document.getElementById('audio'), // Element Audio
+    const audio = document.getElementById('audio'), // Element Audio
         cover = document.getElementById('cover'), // Illustration Musique
         cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
         sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
@@ -26,7 +26,8 @@
     console.log(tailleMemoireTampon);
 
 
-    /***** Microphone record test - NEED secure origins (https or localhost) *****/
+
+    /***** Microphone test feature : it works but not relevant *****/
 
     var microphoneRecord = document.getElementById('microphone-record');
 
@@ -314,7 +315,7 @@
     cover.addEventListener('load', function () {
 
         //Hide intro
-        var intro = document.getElementById('intro');
+        const intro = document.getElementById('intro');
         intro.classList.add('hide');
 
         setTimeout(function () {
