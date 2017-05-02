@@ -12,7 +12,7 @@
      * WEB AUDIO API SETTINGS
      * *********************************************/
 
-    var contexteAudio = new (window.AudioContext || window.webkitAudioContext)(),
+    const contexteAudio = new (window.AudioContext || window.webkitAudioContext)(),
         analyseur = contexteAudio.createAnalyser(),
         source = contexteAudio.createMediaElementSource(audio);
 
@@ -20,7 +20,7 @@
     analyseur.connect(contexteAudio.destination);
     analyseur.fftSize = 128;
 
-    var tailleMemoireTampon = analyseur.frequencyBinCount,
+    const tailleMemoireTampon = analyseur.frequencyBinCount,
         tableauDonnees = new Uint8Array(tailleMemoireTampon);
 
     console.log(tailleMemoireTampon);
@@ -29,7 +29,7 @@
 
     /***** Microphone test feature : it works but not relevant *****/
 
-    var microphoneRecord = document.getElementById('microphone-record');
+    const microphoneRecord = document.getElementById('microphone-record');
 
     /*navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
@@ -83,19 +83,19 @@
 
         analyseur.getByteFrequencyData(tableauDonnees);
 
-        var intervale = Math.floor(tableauDonnees.length /2);
+        const intervale = Math.floor(tableauDonnees.length /2);
 
         // console.log(tableauDonnees);
 
         /*** First circle ***/
 
-        var total1 = 0;
+        let total1 = 0;
 
         for (let i = 0; i < intervale ; i++) {
             total1 += tableauDonnees[i];
         }
 
-        var moyenne1 = total1 / intervale;
+        const moyenne1 = total1 / intervale;
 
         cercles[0].style.width = cover.offsetWidth + moyenne1 + 'px';
         cercles[0].style.height = cover.offsetHeight + moyenne1 + 'px';
@@ -105,14 +105,14 @@
 
         /*** Second circle ***/
 
-        var total2 = 0;
+        let total2 = 0;
 
-        for (var i = intervale; i < tableauDonnees.length; i++) {
+        for (let i = intervale; i < tableauDonnees.length; i++) {
             total2 += tableauDonnees[i];
 
         }
 
-        var moyenne2 = total2 / intervale;
+        const moyenne2 = total2 / intervale;
 
         cercles[1].style.width = cover.offsetWidth + moyenne2 * 1.3 + 'px';
         cercles[1].style.height = cover.offsetHeight + moyenne2  * 1.3 + 'px';
@@ -130,19 +130,19 @@
 
         analyseur.getByteFrequencyData(tableauDonnees);
 
-        var intervale = Math.floor(tableauDonnees.length / 3);
+        const intervale = Math.floor(tableauDonnees.length / 3);
 
         // console.log(tableauDonnees);
 
         /*** Premier cercle ***/
 
-        var total1 = 0;
+        let total1 = 0;
 
-        for (var i = 0; i < intervale ; i++) {
+        for (let i = 0; i < intervale ; i++) {
             total1 += tableauDonnees[i];
         }
 
-        var moyenne1 = total1 / intervale;
+        const moyenne1 = total1 / intervale;
 
         cercles[0].style.width = cover.offsetWidth + moyenne1  + 'px';
         cercles[0].style.height = cover.offsetHeight + moyenne1  + 'px';
@@ -151,14 +151,14 @@
 
         /*** Deuxième cercle ***/
 
-        var total2 = 0;
+        let total2 = 0;
 
-        for (var i = intervale; i < 2 * intervale; i++) {
+        for (let i = intervale; i < 2 * intervale; i++) {
             total2 += tableauDonnees[i];
 
         }
 
-        var moyenne2 = total2 / intervale;
+        const moyenne2 = total2 / intervale;
 
         cercles[1].style.width = cover.offsetWidth + moyenne2 * 0.8 + 'px';
         cercles[1].style.height = cover.offsetHeight + moyenne2 * 0.8 + 'px';
@@ -166,14 +166,14 @@
 
         /*** Troisième cercle ***/
 
-        var total3 = 0;
+        let total3 = 0;
 
-        for (var i = 2 * intervale; i < tableauDonnees.length; i++) {
+        for (let i = 2 * intervale; i < tableauDonnees.length; i++) {
             total3 += tableauDonnees[i];
 
         }
 
-        var moyenne3 = total3 / intervale;
+        const moyenne3 = total3 / intervale;
 
         cercles[2].style.width = cover.offsetWidth + moyenne3 * 2.3 + 'px';
         cercles[2].style.height = cover.offsetHeight + moyenne3 * 2.3 + 'px';
@@ -185,11 +185,11 @@
     /****** Animation Canvas Bars ******/
 
 
-    var canvas = document.getElementsByTagName('canvas')[0];
+    const canvas = document.getElementsByTagName('canvas')[0];
     console.log(canvas);
     canvas.width = 800;
     canvas.height = 200;
-    var ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -204,9 +204,9 @@
         //Eface
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        var largeurBarre = (canvas.width / tailleMemoireTampon) * 2.5;
-        var hauteurBarre;
-        var x = 0;
+        const largeurBarre = (canvas.width / tailleMemoireTampon) * 2.5;
+        let hauteurBarre;
+        let x = 0;
 
 
         /*var total = 0;
@@ -221,7 +221,7 @@
      /*   var moyenne = Math.floor(total / tableauDonnees.length);*/
 
 
-        for(var i = 0; i < tailleMemoireTampon; i++) {
+        for(let i = 0; i < tailleMemoireTampon; i++) {
 
             hauteurBarre = Math.floor(tableauDonnees[i]);
 
@@ -277,7 +277,7 @@
 
     /***** Local source *****/
 
-    var localSource = document.getElementById('source-local');
+    const localSource = document.getElementById('source-local');
 
     localSource.addEventListener('click', function () {
         fileButton.click();
@@ -286,9 +286,9 @@
 
     /***** External sources *****/
 
-    var sourceExternal = document.getElementById('source-external');
+    const sourceExternal = document.getElementById('source-external');
 
-    var introInputText = document.getElementById('intro-input-text');
+    const introInputText = document.getElementById('intro-input-text');
 
 
     sourceExternal.addEventListener('click', function () {
@@ -297,7 +297,7 @@
 
     document.getElementById('intro-input-text-submit').addEventListener('click', function () {
 
-        var introInputTextValue = introInputText.value;
+        const introInputTextValue = introInputText.value;
 
         getSpotifyTrack(introInputTextValue);
 
@@ -333,22 +333,22 @@
 
     /***** Récupération metatags *****/
 
-    var jsmediatags = window.jsmediatags;
-    var getMetatags = function (file) {
+    const jsmediatags = window.jsmediatags;
+    const getMetatags = function (file) {
         jsmediatags.read(file, {
             onSuccess: function(tag) {
 
                 console.log(tag);
 
-                var tags = tag.tags;
+                const tags = tag.tags;
                 console.log("Titre : " + tags.title + " Artiste : " + tags.artist + " Album : " + tags.album);
 
                 //Titre
-                var title = tags.title ? tags.title : "Titre inconnu";
+                const title = tags.title ? tags.title : "Titre inconnu";
                 document.getElementById('title').innerText = title;
 
                 //Artist
-                var artist = tags.artist ? tags.artist : "Artiste inconnu";
+                const artist = tags.artist ? tags.artist : "Artiste inconnu";
                 document.getElementById('artist').innerText = artist;
 
                 //Album
@@ -368,13 +368,13 @@
                 }
 
                 //Image
-                var image = tags.picture;
+                const image = tags.picture;
                 if (image) {
-                    var base64String = "";
-                    for (var i = 0; i < image.data.length; i++) {
+                    let base64String = "";
+                    for (let i = 0; i < image.data.length; i++) {
                         base64String += String.fromCharCode(image.data[i]);
                     }
-                    var base64 = "data:image/jpeg;base64," + window.btoa(base64String);
+                    const base64 = "data:image/jpeg;base64," + window.btoa(base64String);
                     document.getElementById('cover').setAttribute('src',base64);
                 } else {
 
@@ -404,9 +404,9 @@
 
         /*** Temps écoulé ***/
 
-        var currentMinutes = Math.floor(audio.currentTime / 60 ).toString();
+        const currentMinutes = Math.floor(audio.currentTime / 60 ).toString();
 
-        var currentSeconds = Math.floor(audio.currentTime % 60);
+        let currentSeconds = Math.floor(audio.currentTime % 60);
 
         //Toujours 2 chiffres
         currentSeconds = currentSeconds < 10 ? '0' + currentSeconds.toString() : currentSeconds.toString();
@@ -415,9 +415,9 @@
 
         /*** Temps total ***/
 
-        var durationMinutes = Math.floor(audio.duration / 60 ).toString();
+        const durationMinutes = Math.floor(audio.duration / 60 ).toString();
 
-        var durationSeconds = Math.floor(audio.duration % 60);
+        let durationSeconds = Math.floor(audio.duration % 60);
 
         //Toujours 2 chiffres
         durationSeconds = durationSeconds < 10 ? '0' + durationSeconds.toString() : durationSeconds.toString();
@@ -436,8 +436,8 @@
 
     /**** Création de l'url pour la source audio ****/
 
-    var getURL = function (file) {
-        var url = window.URL.createObjectURL(file);
+    const getURL = function (file) {
+        const url = window.URL.createObjectURL(file);
         audio.setAttribute('src', url);
     };
 
@@ -592,17 +592,17 @@
         /***** Dessin du nouveau favicon *****/
 
         //Suprimme l'ancien favicon
-        var rmlink = document.querySelector("head link[type='image/x-icon']");
+        const rmlink = document.querySelector("head link[type='image/x-icon']");
         rmlink.parentNode.removeChild(rmlink);
 
         //Dessin du favicon
-        var favicon = document.createElement('canvas');
+        const favicon = document.createElement('canvas');
         favicon.width = 50;
         favicon.height = 50;
-        var ctx = favicon.getContext('2d');
-        var centerX = favicon.width / 2;
-        var centerY = favicon.height / 2;
-        var radius = 19;
+        const ctx = favicon.getContext('2d');
+        const centerX = favicon.width / 2;
+        const centerY = favicon.height / 2;
+        const radius = 19;
         ctx.beginPath();
         ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
         ctx.fillStyle = accentColor2;
@@ -612,7 +612,7 @@
         ctx.stroke();
 
         //Remplacement du lien
-        var link = document.createElement('link');
+        const link = document.createElement('link');
         link.type = 'image/x-icon';
         link.rel = 'shortcut icon';
         link.href = favicon.toDataURL("image/x-icon");
@@ -628,8 +628,8 @@
      * ********************************************/
 
 
-    var fileInput = document.getElementById("file-input");
-    var fileButton = document.getElementById("file-button");
+    const fileInput = document.getElementById("file-input");
+    const fileButton = document.getElementById("file-button");
 
     fileInput.style.display = 'none';
 
@@ -641,7 +641,7 @@
 
     //Récupération fichier et metatags
     fileInput.addEventListener("change", function(event) {
-        var file = event.target.files[0];
+        const file = event.target.files[0];
         getMetatags(file);
         getURL(file);
         this.blur();
@@ -656,7 +656,7 @@
      * ********************************************/
 
 
-    var dropZone = document.getElementById('drop-zone');
+    const dropZone = document.getElementById('drop-zone');
 
     document.addEventListener('dragover', function(e) {
         e.stopPropagation();
@@ -680,7 +680,7 @@
         e.stopPropagation();
         e.preventDefault();
         //Recupère un seule fichier
-        var file = e.dataTransfer.files[0];
+        const file = e.dataTransfer.files[0];
         getMetatags(file);
         getURL(file);
         dropZone.classList.add('hidden');
@@ -694,7 +694,7 @@
      * ***********************************************/
 
 
-    var spotify = new SpotifyWebApi();
+    const spotify = new SpotifyWebApi();
 
     //Prevent the CORS access restriction for Spotify
     audio.crossOrigin = "anonymous";
@@ -703,7 +703,7 @@
 
     /*** Get ID of track from URL ***/
 
-    var spotifyUrlToId = function(url) {
+    const spotifyUrlToId = function(url) {
         //If 'spotify:' exist in url
         if (url.indexOf('spotify:') !== -1) {
             //If 'spotify:track:' exist in url
@@ -731,10 +731,10 @@
 
     /*** Get data music from JSON ***/
 
-    var getSpotifyData = function (json) {
+    const getSpotifyData = function (json) {
 
         //30s of preview
-        var url = json.preview_url;
+        const url = json.preview_url;
 
         if (url === null ) {
             console.log('pas de prewiew pour cette musique');
@@ -763,10 +763,10 @@
 
     /*** Get Spotify track with url or id */
 
-    var getSpotifyTrack = function (url) {
+    const getSpotifyTrack = function (url) {
 
         //Convert URL to ID
-        var id = spotifyUrlToId(url);
+        const id = spotifyUrlToId(url);
 
         //Todo : gérer les erreurs d'url
 
@@ -788,13 +788,13 @@
 
     /*** Text Input Submit ***/
 
-    var textInput = document.getElementById('input-text');
+    const textInput = document.getElementById('input-text');
 
 
     document.getElementById('input-text-submit').addEventListener('click', function () {
 
         //Text from input
-        var textInputValue = document.getElementById('input-text').value;
+        const textInputValue = document.getElementById('input-text').value;
 
         getSpotifyTrack(textInputValue);
 
@@ -900,16 +900,16 @@
 
     /***** Timeline *****/
 
-    var timeline = document.getElementById('timeline');
-    var timelineProgress = document.getElementById('timeline-progress');
+    const timeline = document.getElementById('timeline');
+    const timelineProgress = document.getElementById('timeline-progress');
 
     audio.addEventListener('timeupdate', function () {
-        var progression = (audio.currentTime / audio.duration) * 100;
+        const progression = (audio.currentTime / audio.duration) * 100;
         timelineProgress.style.width = progression + '%';
     });
 
     timeline.addEventListener('click', function (e) {
-        var progressionPourcent = this.clientWidth / e.pageX;
+        const progressionPourcent = this.clientWidth / e.pageX;
         audio.currentTime = audio.duration / progressionPourcent;
 
     });
@@ -918,7 +918,7 @@
 
     /***** Toggle Fullscreen *****/
 
-    var fullscreen = document.querySelector("button[class^='icon-window']");
+    const fullscreen = document.querySelector("button[class^='icon-window']");
 
     fullscreen.addEventListener('click', function () {
 
@@ -980,7 +980,7 @@
 
     //Bouton Mute
 
-    var son = document.querySelector("button[class^='icon-volume']");
+    const son = document.querySelector("button[class^='icon-volume']");
 
     son.addEventListener('click', function () {
 
@@ -1014,7 +1014,7 @@
 
     //Slider
 
-    var volumeSlider = document.getElementById('volume-slider');
+    const volumeSlider = document.getElementById('volume-slider');
 
     volumeSlider.value = volume;
     audio.volume = volume / 100;
