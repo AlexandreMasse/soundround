@@ -5,6 +5,7 @@
         cover = document.getElementById('cover'), // Illustration Musique
         cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
         sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
+        textInput = document.getElementById('input-text'),
         volume = 50; //Sur 100
 
 
@@ -295,15 +296,23 @@
         introInputText.focus();
     });
 
+
     document.getElementById('intro-input-text-submit').addEventListener('click', function () {
 
-        const introInputTextValue = introInputText.value;
+        //Spotify
+        if (introInputText.value.indexOf('spotify') !== -1) {
+            getSpotifyTrack(introInputText.value);
 
-        getSpotifyTrack(introInputTextValue);
+        }
+        //Soundcloud
+        else if (introInputText.value.indexOf('soundcloud') !== -1) {
+            soundcloudSearch(introInputText.value);
+        }
 
-        introInputText.blur();
-        introInputText.value = "";
-
+        else {
+            introInputText.value = '';
+            introInputText.setAttribute('placeholder', 'URL invalide')
+        }
 
     });
 
@@ -434,7 +443,7 @@
     });
 
 
-    /**** Création de l'url pour la source audio ****/
+    /**** Create the url  for audio source with local import ****/
 
     const getURL = function (file) {
         const url = window.URL.createObjectURL(file);
@@ -779,6 +788,12 @@
                 getSpotifyData(json);
 
                 audio.addEventListener('canplay', function () {
+                    textInput.value = "";
+                    textInput.blur();
+
+                    introInputText.value = "";
+                    introInputText.blur();
+
                     audio.play();
                 });
             }
@@ -788,22 +803,111 @@
 
     /*** Text Input Submit ***/
 
-    const textInput = document.getElementById('input-text');
+
+    // document.getElementById('input-text-submit').addEventListener('click', function () {
+    //
+    //     //Text from input
+    //     const textInputValue = document.getElementById('input-text').value;
+    //
+    //     getSpotifyTrack(textInputValue);
+    //
+    //
+    //     textInput.value = "";
+    //     textInput.blur();
+    //
+    //
+    // });
+
+
+
+    /************************************************
+     * IMPORT SOUNCLOUD
+     * ***********************************************/
+
+
+    const scID = 'nK6XQJ9KyRHKZf7sE6UVLxGpHFbqCJjP';
+
+
+    SC.initialize({
+        client_id: scID
+    });
+
+
+    const soundcloudSearch = function(scUrl){
+        SC.resolve(scUrl).then(soundcloudStreamTrack);
+    };
+
+
+    const soundcloudStreamTrack = function(track){
+        return SC.stream('/tracks/' + track.id).then(function(player){
+
+            console.log(track);
+
+            audio.setAttribute('src', track.stream_url + '?client_id=' + scID);
+
+            //Song name
+            document.getElementById('title').innerText = track.title;
+
+            //Artist
+            document.getElementById('artist').innerText = track.user.username;
+
+            //Album name : not provided
+            document.getElementById('album').style.display = 'none';
+
+            //Album cover image
+            const scDeafaultCover = track.artwork_url;
+
+            const scLargeCover = scDeafaultCover.replace('large', 't500x500');
+
+            document.getElementById('cover').setAttribute('src', scLargeCover);
+
+            //Play audio when ready
+            audio.addEventListener('canplay', function () {
+                textInput.value = "";
+                textInput.blur();
+
+                introInputText.value = "";
+                introInputText.blur();
+                audio.play();
+            });
+
+
+        }).catch(function(){
+            console.log(arguments);
+        });
+    };
+
+
+
+    /************************************************
+     * IMPORT SOUNCLOUD / SPOTIFY
+     * ***********************************************/
 
 
     document.getElementById('input-text-submit').addEventListener('click', function () {
 
-        //Text from input
-        const textInputValue = document.getElementById('input-text').value;
+        //Spotify
+        if (textInput.value.indexOf('spotify') !== -1) {
+            getSpotifyTrack(textInput.value);
 
-        getSpotifyTrack(textInputValue);
+        }
+        //Soundcloud
+        else if (textInput.value.indexOf('soundcloud') !== -1) {
+            soundcloudSearch(textInput.value);
+        }
 
-
-        textInput.value = "";
-        textInput.blur();
-
+        else {
+            textInput.value = '';
+            textInput.setAttribute('placeholder', 'URL invalide')
+        }
 
     });
+
+
+
+
+
+
 
 
 
@@ -878,16 +982,21 @@
             }
 
 
+        }
+
+
         //Input type text player
-        } else if (e.target.id = "input-text"){
+        if (e.target.id = "input-text"){
 
             //Enter key : submit text of input
             if (e.keyCode === 13) {
                 document.getElementById('input-text-submit').click();
             }
 
+        }
+
         //Input type text intro
-        } else if (e.target.id = "intro-input-text"){
+        if (e.target.id = "intro-input-text"){
 
             //Enter key : submit text of input
             if (e.keyCode === 13) {
