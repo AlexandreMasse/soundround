@@ -310,6 +310,7 @@
         }
 
         else {
+            console.log('cccccccccccccccccccccccccccc');
             introInputText.value = '';
             introInputText.setAttribute('placeholder', 'URL invalide')
         }
@@ -790,9 +791,11 @@
                 audio.addEventListener('canplay', function () {
                     textInput.value = "";
                     textInput.blur();
+                    textInput.setAttribute("placeholder", "Spotify / Souncloud URL");
 
                     introInputText.value = "";
                     introInputText.blur();
+                    introInputText.setAttribute("placeholder", "Spotify / Souncloud URL");
 
                     audio.play();
                 });
@@ -865,9 +868,12 @@
             audio.addEventListener('canplay', function () {
                 textInput.value = "";
                 textInput.blur();
+                textInput.setAttribute("placeholder", "Spotify / Souncloud URL");
 
                 introInputText.value = "";
                 introInputText.blur();
+                introInputText.setAttribute("placeholder", "Spotify / Souncloud URL");
+
                 audio.play();
             });
 
@@ -897,6 +903,7 @@
         }
 
         else {
+            console.log('eeeeeeeeeeeeeeeeeeeeeeeee');
             textInput.value = '';
             textInput.setAttribute('placeholder', 'URL invalide')
         }
