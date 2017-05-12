@@ -520,6 +520,51 @@ $t : 0s; //delay before first animation
   background-color: $accentColor2;
 
 
+  &.show {
+    display: flex;
+
+    animation: help-about-show .7s forwards;
+
+    @keyframes help-about-show {
+      0% {
+        opacity: 0;
+        z-index: 15;
+      }
+      99% {
+        opacity: 0.97;
+      }
+      100% {
+        opacity: 0.97;
+        z-index: 15;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &.hidden {
+    display: flex;
+
+    animation: help-about-hide .7s forwards;
+
+    @keyframes help-about-hide {
+      0% {
+        opacity: 0.97;
+        pointer-events: none;
+        z-index: 15;
+      }
+      99% {
+        opacity: 0;
+        z-index: 15;
+      }
+      100% {
+        pointer-events: none;
+        opacity: 0;
+        z-index: -1;
+      }
+    }
+
+  }
+
   & > div {
     max-width: 1100px;
   }
@@ -587,52 +632,6 @@ $t : 0s; //delay before first animation
 
       }
     }
-  }
-
-
-  &.show {
-    display: flex;
-
-    animation: help-about-show .7s forwards;
-
-    @keyframes help-about-show {
-      0% {
-        opacity: 0;
-        z-index: 15;
-      }
-      99% {
-        opacity: 0.97;
-      }
-      100% {
-        opacity: 0.97;
-        z-index: 15;
-        pointer-events: auto;
-      }
-    }
-  }
-
-  &.hidden {
-    display: flex;
-
-    animation: help-about-hide .7s forwards;
-
-    @keyframes help-about-hide {
-      0% {
-        opacity: 0.97;
-        pointer-events: none;
-        z-index: 15;
-      }
-      99% {
-        opacity: 0;
-        z-index: 15;
-      }
-      100% {
-        pointer-events: none;
-        opacity: 0;
-        z-index: -1;
-      }
-    }
-
   }
 
 }
@@ -1063,7 +1062,7 @@ main#player {
   background-color: $accentColor2;
   color: $accentColor1;
   width: 100%;
-  height: 120px;
+  height: 115px;
 
   display: flex;
   flex-wrap: wrap;
@@ -1072,12 +1071,8 @@ main#player {
   align-items: center;
 
   @media screen and (min-width: $tabletPortrait) {
-    height: 100px;
-    flex-direction: row;
-  }
-
-  @media screen and(min-width: $tabletLandscape) {
     height: 90px;
+    flex-direction: row;
   }
 
   #control, #soundcloud-spotify {
@@ -1105,7 +1100,7 @@ main#player {
       border: 0;
 
       @media screen and(min-width: $tabletLandscape) {
-        font-size: 4rem;
+        font-size: 4.2rem;
       }
 
     }
@@ -1256,6 +1251,10 @@ main#player {
   }
 
 
+
+
+
+
   /********* Soundcloud and Spotify *********/
 
   #soundcloud-spotify {
@@ -1265,8 +1264,12 @@ main#player {
       margin-top: 0;
     }
 
-    .icon-soundcloud {
-      display: none;
+    .icon-soundcloud, .icon-spotify, .icon-url-play {
+      margin: 0 0.5rem;
+
+      @media screen and(min-width: $desktop) {
+        margin: 0 1rem;
+      }
     }
 
     /***** Submit button *****/
@@ -1279,8 +1282,8 @@ main#player {
 
     div {
       position: relative;
-      width: 19rem;
-      margin : 0;
+      width: 15rem;
+      margin : 0 0.3rem;
       border-radius: 0;
 
       @media screen and (min-width: $tabletPortrait){
@@ -1290,6 +1293,7 @@ main#player {
 
       @media screen and(min-width: $desktop) {
         width: 24rem;
+        margin: 0 1rem;
       }
 
       @media screen and(min-width: $desktopLarge) {
