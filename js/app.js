@@ -665,8 +665,15 @@
      * IMPORT DRAG & DROP
      * ********************************************/
 
-
     const dropZone = document.getElementById('drop-zone');
+
+
+    /* Fix display bug on first load */
+    setTimeout(function () {
+        dropZone.style.display = 'flex';
+    }, 1500);
+
+
 
     document.addEventListener('dragover', function(e) {
         e.stopPropagation();
