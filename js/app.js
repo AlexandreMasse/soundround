@@ -302,15 +302,18 @@
         //Spotify
         if (introInputText.value.indexOf('spotify') !== -1) {
             getSpotifyTrack(introInputText.value);
+            console.log('intro - spotify');
+
 
         }
         //Soundcloud
         else if (introInputText.value.indexOf('soundcloud') !== -1) {
             soundcloudSearch(introInputText.value);
+            console.log('intro - soundcloud');
         }
 
         else {
-            console.log('cccccccccccccccccccccccccccc');
+            console.log('URL invalide imput intro');
             introInputText.value = '';
             introInputText.setAttribute('placeholder', 'URL invalide')
         }
@@ -754,7 +757,15 @@
         const url = json.preview_url;
 
         if (url === null ) {
-            console.log('pas de prewiew pour cette musique');
+
+            textInput.value = "";
+            textInput.blur();
+            textInput.setAttribute("placeholder", "Musique indisponible :(");
+
+            introInputText.value = "";
+            introInputText.blur();
+            introInputText.setAttribute("placeholder", "Musique indisponible :(");
+
 
             return false;
 
@@ -784,13 +795,23 @@
 
         //Convert URL to ID
         const id = spotifyUrlToId(url);
-
-        //Todo : gérer les erreurs d'url
+        
 
         //Get track with ID
         spotify.getTrack(id, function (err, json) {
+
             if (err) {
                 console.error(err);
+
+                textInput.value = "";
+                textInput.blur();
+                textInput.setAttribute("placeholder", "URL invalide");
+
+                introInputText.value = "";
+                introInputText.blur();
+                introInputText.setAttribute("placeholder", "URL invalide");
+
+
             } else {
                 console.log('Music', json);
                 getSpotifyData(json);
@@ -843,8 +864,45 @@
     });
 
 
+
+    /* Search soundcloud music with url */
+
     const soundcloudSearch = function(scUrl){
-        SC.resolve(scUrl).then(soundcloudStreamTrack);
+        const scRequest =  SC.resolve(scUrl);
+
+        SC.resolve(scUrl).then(soundcloudStreamTrack, function (err) {
+
+            console.log(err);
+
+
+            if (err.status === 403 ) {
+
+                textInput.value = "";
+                textInput.blur();
+                textInput.setAttribute("placeholder", "Musique indisponible :(");
+
+                introInputText.value = "";
+                introInputText.blur();
+                introInputText.setAttribute("placeholder", "Musique indisponible :(");
+
+            }
+
+            else if (err.status === 404 ) {
+
+                textInput.value = "";
+                textInput.blur();
+                textInput.setAttribute("placeholder", "URL invalide");
+
+                introInputText.value = "";
+                introInputText.blur();
+                introInputText.setAttribute("placeholder", "URL invalide");
+
+            }
+
+            console.log(scRequest);
+        });
+
+
     };
 
 
@@ -910,7 +968,6 @@
         }
 
         else {
-            console.log('eeeeeeeeeeeeeeeeeeeeeeeee');
             textInput.value = '';
             textInput.setAttribute('placeholder', 'URL invalide')
         }
@@ -1000,20 +1057,22 @@
 
 
         //Input type text player
-        if (e.target.id = "input-text"){
+        if (e.target.id === "input-text"){
 
             //Enter key : submit text of input
             if (e.keyCode === 13) {
+
                 document.getElementById('input-text-submit').click();
             }
 
         }
 
         //Input type text intro
-        if (e.target.id = "intro-input-text"){
+        if (e.target.id === "intro-input-text"){
 
             //Enter key : submit text of input
             if (e.keyCode === 13) {
+
                 document.getElementById('intro-input-text-submit').click();
             }
         }
