@@ -577,6 +577,9 @@ $t : 0s; //delay before first animation
 
       margin: 0 0 1rem 0;
 
+      &:nth-of-type(1) {
+        margin: 0 0 1.8rem 0;
+      }
       &:nth-of-type(2) {
         margin-top: 1.8rem;
       }
@@ -625,7 +628,7 @@ $t : 0s; //delay before first animation
         width: 100%;
 
         @media screen and (min-width: $desktop){
-          bottom: -3px;
+          bottom: -2px;
         }
 
       }
@@ -653,26 +656,45 @@ $t : 0s; //delay before first animation
     align-items: flex-start;
 
     margin-bottom: 1.8rem;
+
   }
 
 
-  #help-folder, #help-spotify {
+
+
+  #help-folder, #help-spotify, #help-soundcloud, #help-spotify-soundcloud {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
 
     @media screen and (min-width: $desktop) {
-      width: 45%;
+      width: 30%;
+    }
+  }
+
+  #help-spotify.desktop, #help-soundcloud.desktop {
+    display: none;
+    @media screen and (min-width: $desktop) {
+      display: flex;
+    }
+  }
+
+  #help-spotify-soundcloud.mobile {
+    .logos {
+      display: flex;
+      justify-content: center;
+    }
+    display: flex;
+    @media screen and (min-width: $desktop) {
+      display: none;
     }
   }
 
 
-
-  .icon-folder, .icon-spotify {
+  .icon-folder, .icon-spotify, .icon-soundcloud {
     padding: 0;
-    margin: 0.5rem 0 0 0;
-    color: $accentColor1;
+    margin: 0.5rem 1.4rem 0 1.4rem;
     outline: none;
     cursor: pointer;
     text-decoration: none;
