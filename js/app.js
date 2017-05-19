@@ -1,12 +1,23 @@
 'use strict';
 (function() {
 
+    /**** Variables ****/
+
+    /* DOM elements */
+
     const audio = document.getElementById('audio'), // Element Audio
-        cover = document.getElementById('cover'), // Illustration Musique
+        cover = document.getElementById('cover'), // Music cover
         cercles = document.querySelectorAll("[class^='cercle-']"), // Cercles animés
         sousCercles = document.querySelectorAll("[class^='sous-cercle-']"), // Fond cercles animés
-        textInput = document.getElementById('input-text'),
-        volume = 50; //Sur 100
+        textInput = document.getElementById('input-text');
+
+
+    /* Parameters */
+
+    const volume = 50; // 0-100
+
+
+
 
 
     /***********************************************
@@ -20,6 +31,8 @@
     source.connect(analyseur);
     analyseur.connect(contexteAudio.destination);
     analyseur.fftSize = 128;
+    analyseur.minDecibels = -110; // default 100
+    analyseur.maxDecibels = -30; // default -30
 
     const tailleMemoireTampon = analyseur.frequencyBinCount,
         tableauDonnees = new Uint8Array(tailleMemoireTampon);
@@ -30,10 +43,9 @@
 
     /***** Microphone test feature : it works but not relevant *****/
 
-    const microphoneRecord = document.getElementById('microphone-record');
+    //const microphoneRecord = document.getElementById('microphone-record');
 
     /*navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-
 
     if (navigator.getUserMedia) {
         console.log('getUserMedia supported.');
@@ -57,9 +69,7 @@
                     microphoneRecord.style.background = "red";
                     microphoneRecord.style.color = "green";
                 }
-
             },
-
             //Error
             function(err) {
                 console.log('getUserMedia error : ' + err);
@@ -98,10 +108,24 @@
 
         const moyenne1 = total1 / intervale;
 
-        cercles[0].style.width = cover.offsetWidth + moyenne1 + 'px';
-        cercles[0].style.height = cover.offsetHeight + moyenne1 + 'px';
 
-        cercles[0].style.borderWidth = 3 + Math.floor(moyenne1 /12) + 'px';
+        if (window.innerHeight <= 750) {
+
+            cercles[0].style.width = cover.offsetWidth + moyenne1 + 'px';
+            cercles[0].style.height = cover.offsetHeight + moyenne1 + 'px';
+            cercles[0].style.borderWidth = 3 + Math.floor(moyenne1 /12) + 'px';
+
+        }
+
+        else if (window.innerHeight > 750) {
+
+            cercles[0].style.width = cover.offsetWidth + moyenne1 * 1.1 + 'px';
+            cercles[0].style.height = cover.offsetHeight + moyenne1 * 1.1 + 'px';
+            cercles[0].style.borderWidth = 3 + Math.floor(moyenne1 /11) + 'px';
+
+        }
+
+
 
 
         /*** Second circle ***/
@@ -115,10 +139,23 @@
 
         const moyenne2 = total2 / intervale;
 
-        cercles[1].style.width = cover.offsetWidth + moyenne2 * 1.3 + 'px';
-        cercles[1].style.height = cover.offsetHeight + moyenne2  * 1.3 + 'px';
 
-        cercles[1].style.borderWidth = 3 + Math.floor(moyenne2 / 8) + 'px';
+        if (window.innerHeight <= 750) {
+            cercles[1].style.width = cover.offsetWidth + moyenne2 * 1.3 + 'px';
+            cercles[1].style.height = cover.offsetHeight + moyenne2  * 1.3 + 'px';
+            cercles[1].style.borderWidth = 3 + Math.floor(moyenne2 / 8) + 'px';
+        }
+
+        else if (window.innerHeight > 750) {
+
+            cercles[1].style.width = cover.offsetWidth + moyenne2 * 1.4 + 'px';
+            cercles[1].style.height = cover.offsetHeight + moyenne2  * 1.4 + 'px';
+            cercles[1].style.borderWidth = 3 + Math.floor(moyenne2 / 7) + 'px';
+
+        }
+
+
+
 
 
     }
@@ -195,6 +232,8 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
 
+
+
     function animationCanvasBars() {
         requestAnimationFrame(animationCanvasBars);
 
@@ -232,7 +271,6 @@
             x += largeurBarre + 1;
         }
 
-
     }
 
 
@@ -262,9 +300,8 @@
     //animationCanvasBars();
 
 
-    // animationTroisCercles();
+    //animationTroisCercles();
     animationTwoCircles();
-
 
 
 
@@ -795,7 +832,7 @@
 
         //Convert URL to ID
         const id = spotifyUrlToId(url);
-        
+
 
         //Get track with ID
         spotify.getTrack(id, function (err, json) {

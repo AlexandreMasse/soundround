@@ -893,8 +893,8 @@ main#player {
       #cover {
         z-index: 3;
         display: block;
-        width: 13rem;
-        height: 13rem;
+        width: 12rem;
+        height: 12rem;
         object-fit: cover;
         border-radius: 50%;
 
@@ -928,7 +928,16 @@ main#player {
         @media screen and (min-width: $desktop) {
           width: 17rem;
           height: 17rem;
+        }
 
+        @media screen and (min-device-height: 750px){
+          width: 21rem;
+          height: 21rem;
+        }
+
+        @media screen and (min-device-height: 880px){
+          width: 23rem;
+          height: 23rem;
         }
       }
     }
@@ -1023,7 +1032,6 @@ main#player {
   }
 
 }
-
 
 
 /********** TIMELINE ************/
