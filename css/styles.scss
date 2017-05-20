@@ -458,7 +458,7 @@ $t : 0s; //delay before first animation
   font-size: 1.4rem;
   font-weight: 300;
 
-  margin: 7rem 0 0 0;
+  margin: 6rem 0 0 0;
 
   &.desktop {
     display: none;
@@ -490,7 +490,22 @@ $t : 0s; //delay before first animation
   }
 }
 
+#browser {
 
+
+  margin-top: 2.5rem;
+  font-size: 1.3rem;
+  font-weight: 200;
+
+  opacity: 0;
+  animation: fade-in 1.5s $t+3s ease-in forwards;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 400;
+  }
+}
 
 
 /****************************************
@@ -1049,10 +1064,7 @@ main#player {
       }
 
     }
-
-
   }
-
 }
 
 
@@ -1277,7 +1289,6 @@ main#player {
     }
 
   }
-
 
 
 

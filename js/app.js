@@ -17,8 +17,25 @@
     const volume = 50; // 0-100
 
 
+    /************************************************
+     * CHECK IF BROWSER IS CHROME
+     * **********************************************/
 
+    const isChromium = window.chrome,
+        winNav = window.navigator,
+        vendorName = winNav.vendor,
+        isOpera = winNav.userAgent.indexOf("OPR") > -1,
+        isIEedge = winNav.userAgent.indexOf("Edge") > -1,
+        isIOSChrome = winNav.userAgent.match("CriOS");
 
+    if(isIOSChrome){
+        // is Google Chrome on IOS --> is good
+    } else if(isChromium !== null && isChromium !== undefined && vendorName === "Google Inc." && isOpera == false && isIEedge == false) {
+        // is Google Chrome --> is good
+    } else {
+        // is not Google Chrome --> warning
+        //alert("Attention ! SounRound est optimisé pour Google Chrome, pensez donc à utiliser ce dernier pour une meilleure expérience :)");
+    }
 
     /***********************************************
      * WEB AUDIO API SETTINGS
@@ -43,9 +60,11 @@
 
     /***** Microphone test feature : it works but not relevant *****/
 
-    //const microphoneRecord = document.getElementById('microphone-record');
+    /*
 
-    /*navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    const microphoneRecord = document.getElementById('microphone-record');
+
+    navigator.getUserMedia  = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
 
     if (navigator.getUserMedia) {
         console.log('getUserMedia supported.');
@@ -77,7 +96,9 @@
         );
     } else {
         alert('getUserMedia not supported !');
-    }*/
+    }
+
+    */
 
 
 
@@ -154,11 +175,9 @@
 
         }
 
-
-
-
-
     }
+
+
 
 
     /******* Animation 3 circles ********/
