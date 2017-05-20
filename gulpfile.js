@@ -1,4 +1,4 @@
-var gulp        = require('gulp'),
+const gulp        = require('gulp'),
     sass        = require('gulp-sass'),
     plumber     = require('gulp-plumber'),
     autoprefixer = require('gulp-autoprefixer'),
@@ -19,7 +19,7 @@ gulp.task('watch', function(){
 gulp.task('sass', function() {
     return gulp.src('css/**/*.scss') // Prend tous les fichiers .scss dans le dossier /css
         .pipe(plumber()) // Empeche le la tache de s'arreter s'il y a une erreur
-        .pipe(sass({outputStyle: 'expanded'}))   //Compile en css
+        .pipe(sass({outputStyle: 'compressed'}))   //Compile en css
         .pipe(autoprefixer())
         .pipe(gulp.dest('css')) // Dossier de destination des css compilés
         .pipe(browserSync.stream());
